@@ -1,9 +1,29 @@
 import Hero from "@/components/ui/animated-shader-hero";
+import { supabase } from "@/lib/supabase";
 
 function App() {
-  const handleGoogleSignIn = () => {
-    console.log('Google Sign In clicked');
-    // Add your Google OAuth logic here
+  const handleGoogleSignIn = async () => {
+    try {
+      console.log('Google Sign In clicked');
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/`,
+        }
+      });
+
+      if (error) {
+        console.error('Error signing in with Google:', error.message);
+        alert('Erro ao fazer login com Google. Tente novamente.');
+      }
+
+      // The user will be redirected to Google for authentication
+      // After successful authentication, they'll be redirected back to your app
+      console.log('Redirecting to Google...', data);
+    } catch (error) {
+      console.error('Unexpected error:', error);
+      alert('Erro inesperado. Tente novamente.');
+    }
   };
 
   const scrollToDetails = () => {
