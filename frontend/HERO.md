@@ -4,61 +4,18 @@
 
 The Hero component is a full-screen animated shader background with customizable overlay content including trust badges, headlines, subtitles, and call-to-action buttons.
 
-## 🎨 Color Palette Variants
+## 🎨 Current Color Palette
 
-Eight different color palettes available for testing. All use the same content, different shader backgrounds:
+**Blue/Cyan - Cool & Tech** 💎
 
-### **Orange/Yellow - Warm & Energetic** (Current Default)
-🔗 **http://localhost:5175/orange**
-- Warm orange and yellow tones
-- Energetic, action-oriented feel
-- Best for: Motivation, action, urgency
-
-### **Blue/Cyan - Cool & Tech**
-🔗 **http://localhost:5175/blue**
+The hero uses a blue/cyan color palette with:
 - Cool blue and cyan tones
 - Professional, trustworthy tech vibe
-- Best for: Trust, professionalism, tech credibility
-
-### **Purple/Magenta - Creative & Modern**
-🔗 **http://localhost:5175/purple**
-- Purple and magenta tones
-- Creative, innovative, modern
-- Best for: Innovation, creativity, uniqueness
-
-### **Green/Emerald - Growth & Nature**
-🔗 **http://localhost:5175/green**
-- Green and emerald tones
-- Growth, prosperity, natural
-- Best for: Growth, sustainability, calm confidence
-
-### **Red/Pink - Energy & Passion**
-🔗 **http://localhost:5175/red**
-- Red and pink tones
-- Bold, passionate, attention-grabbing
-- Best for: Urgency, passion, bold action
-
-### **Teal/Cyan - Startup & Tech**
-🔗 **http://localhost:5175/teal**
-- Teal and cyan tones
-- Modern startup aesthetic
-- Best for: Startups, SaaS, modern tech
-
-### **Grayscale - Elegant & Sophisticated** 🎩
-🔗 **http://localhost:5175/grayscale**
-- Smooth grayscale tones
-- Elegant, sophisticated, timeless
-- Best for: Premium feel, elegance, sophistication
-
-### **Black & White - High Contrast & Minimal** ⚫⚪
-🔗 **http://localhost:5175/blackwhite**
-- Pure black and white, high contrast
-- Minimal, bold, striking
-- Best for: Minimalism, clarity, bold statements
+- Perfect for tech credibility and professionalism
 
 ---
 
-## 🇧🇷 Current Content (All Variants)
+## 🇧🇷 Current Content
 
 **Headline:**
 - Line 1: "Pare de Planejar."
