@@ -427,10 +427,12 @@ const Hero: React.FC<HeroProps> = ({
           </div>
           
           {/* Subtitle with Animation */}
-          <div className="max-w-3xl mx-auto animate-fade-in-up animation-delay-600">
-            <p className="text-lg md:text-xl lg:text-2xl text-orange-100/90 font-light leading-relaxed">
-              {subtitle}
-            </p>
+          <div className="max-w-7xl mx-auto animate-fade-in-up animation-delay-600 px-4">
+            <div className="text-lg md:text-xl lg:text-2xl text-orange-100/90 font-light leading-relaxed space-y-2">
+              {subtitle.split('|').map((line, index) => (
+                <p key={index} className="md:whitespace-nowrap">{line}</p>
+              ))}
+            </div>
           </div>
           
           {/* CTA Buttons with Animation */}

@@ -69,6 +69,8 @@
 }
 
 body {
+  margin: 0;
+  padding: 0;
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
 }
