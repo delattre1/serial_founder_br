@@ -1,38 +1,28 @@
-import Hero from "@/components/ui/animated-shader-hero";
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import HeroOrange from './variants/HeroOrange';
+import HeroBlue from './variants/HeroBlue';
+import HeroPurple from './variants/HeroPurple';
+import HeroGreen from './variants/HeroGreen';
+import HeroRed from './variants/HeroRed';
+import HeroTeal from './variants/HeroTeal';
+import HeroGrayscale from './variants/HeroGrayscale';
+import HeroBlackWhite from './variants/HeroBlackWhite';
 
 function App() {
-  const handleGoogleSignIn = () => {
-    console.log('Google Sign In clicked');
-    // Add your Google OAuth logic here
-  };
-
-  const scrollToDetails = () => {
-    console.log('Scroll to details clicked');
-    // Add scroll logic here
-  };
-
   return (
-    <Hero
-      trustBadge={{
-        text: "Mais de 1 dev brasileiro já lançou seu produto",
-        icons: ["🚀"]
-      }}
-      headline={{
-        line1: "Pare de Planejar.",
-        line2: "Comece a Construir."
-      }}
-      subtitle="Tire seu produto do papel e coloque no ar — mesmo trabalhando 8h no CLT.|Serial Founders Brasil é a comunidade que transforma devs em founders.|Do zero ao lançamento em 30 dias."
-      buttons={{
-        primary: {
-          text: "Entrar na Comunidade (Grátis)",
-          onClick: handleGoogleSignIn
-        },
-        secondary: {
-          text: "Ver Como Funciona",
-          onClick: scrollToDetails
-        }
-      }}
-    />
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/orange" replace />} />
+        <Route path="/orange" element={<HeroOrange />} />
+        <Route path="/blue" element={<HeroBlue />} />
+        <Route path="/purple" element={<HeroPurple />} />
+        <Route path="/green" element={<HeroGreen />} />
+        <Route path="/red" element={<HeroRed />} />
+        <Route path="/teal" element={<HeroTeal />} />
+        <Route path="/grayscale" element={<HeroGrayscale />} />
+        <Route path="/blackwhite" element={<HeroBlackWhite />} />
+      </Routes>
+    </Router>
   );
 }
 

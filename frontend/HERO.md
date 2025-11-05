@@ -4,14 +4,70 @@
 
 The Hero component is a full-screen animated shader background with customizable overlay content including trust badges, headlines, subtitles, and call-to-action buttons.
 
-## 🇧🇷 Current Portuguese Version
+## 🎨 Color Palette Variants
+
+Eight different color palettes available for testing. All use the same content, different shader backgrounds:
+
+### **Orange/Yellow - Warm & Energetic** (Current Default)
+🔗 **http://localhost:5175/orange**
+- Warm orange and yellow tones
+- Energetic, action-oriented feel
+- Best for: Motivation, action, urgency
+
+### **Blue/Cyan - Cool & Tech**
+🔗 **http://localhost:5175/blue**
+- Cool blue and cyan tones
+- Professional, trustworthy tech vibe
+- Best for: Trust, professionalism, tech credibility
+
+### **Purple/Magenta - Creative & Modern**
+🔗 **http://localhost:5175/purple**
+- Purple and magenta tones
+- Creative, innovative, modern
+- Best for: Innovation, creativity, uniqueness
+
+### **Green/Emerald - Growth & Nature**
+🔗 **http://localhost:5175/green**
+- Green and emerald tones
+- Growth, prosperity, natural
+- Best for: Growth, sustainability, calm confidence
+
+### **Red/Pink - Energy & Passion**
+🔗 **http://localhost:5175/red**
+- Red and pink tones
+- Bold, passionate, attention-grabbing
+- Best for: Urgency, passion, bold action
+
+### **Teal/Cyan - Startup & Tech**
+🔗 **http://localhost:5175/teal**
+- Teal and cyan tones
+- Modern startup aesthetic
+- Best for: Startups, SaaS, modern tech
+
+### **Grayscale - Elegant & Sophisticated** 🎩
+🔗 **http://localhost:5175/grayscale**
+- Smooth grayscale tones
+- Elegant, sophisticated, timeless
+- Best for: Premium feel, elegance, sophistication
+
+### **Black & White - High Contrast & Minimal** ⚫⚪
+🔗 **http://localhost:5175/blackwhite**
+- Pure black and white, high contrast
+- Minimal, bold, striking
+- Best for: Minimalism, clarity, bold statements
+
+---
+
+## 🇧🇷 Current Content (All Variants)
 
 **Headline:**
 - Line 1: "Pare de Planejar."
 - Line 2: "Comece a Construir."
 
 **Subtitle:**
-"Tire seu produto do papel e coloque no ar — mesmo trabalhando 8h no CLT. Serial Founders Brasil é a comunidade que transforma devs em founders. Do zero ao lançamento em 30 dias."
+- "Tire seu produto do papel e coloque no ar — mesmo trabalhando 8h no CLT."
+- "Serial Founders Brasil é a comunidade que transforma devs em founders."
+- "Do zero ao lançamento em 30 dias."
 
 **Trust Badge:**
 "Mais de 1 dev brasileiro já lançou seu produto" 🚀

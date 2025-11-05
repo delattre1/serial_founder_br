@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { shaderPalettes } from './shaders';
 
 // Types for component props
 interface HeroProps {
@@ -22,10 +23,11 @@ interface HeroProps {
     };
   };
   className?: string;
+  shaderPalette?: keyof typeof shaderPalettes;
 }
 
 // Reusable Shader Background Hook
-const useShaderBackground = () => {
+const useShaderBackground = (palette: keyof typeof shaderPalettes = 'orange') => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number>();
   const rendererRef = useRef<WebGLRenderer | null>(null);
@@ -53,12 +55,12 @@ void main(){gl_Position=position;}`;
 
     private vertices = [-1, 1, -1, -1, 1, 1, 1, -1];
 
-    constructor(canvas: HTMLCanvasElement, scale: number) {
+    constructor(canvas: HTMLCanvasElement, scale: number, shaderSource: string) {
       this.canvas = canvas;
       this.scale = scale;
       this.gl = canvas.getContext('webgl2')!;
       this.gl.viewport(0, 0, canvas.width * scale, canvas.height * scale);
-      this.shaderSource = defaultShaderSource;
+      this.shaderSource = shaderSource;
     }
 
     updateShader(source: string) {
@@ -286,23 +288,24 @@ void main(){gl_Position=position;}`;
 
     const canvas = canvasRef.current;
     const dpr = Math.max(1, 0.5 * window.devicePixelRatio);
-    
-    rendererRef.current = new WebGLRenderer(canvas, dpr);
+    const shaderSource = shaderPalettes[palette];
+
+    rendererRef.current = new WebGLRenderer(canvas, dpr, shaderSource);
     pointersRef.current = new PointerHandler(canvas, dpr);
-    
+
     rendererRef.current.setup();
     rendererRef.current.init();
-    
+
     resize();
-    
-    if (rendererRef.current.test(defaultShaderSource) === null) {
-      rendererRef.current.updateShader(defaultShaderSource);
+
+    if (rendererRef.current.test(shaderSource) === null) {
+      rendererRef.current.updateShader(shaderSource);
     }
-    
+
     loop(0);
-    
+
     window.addEventListener('resize', resize);
-    
+
     return () => {
       window.removeEventListener('resize', resize);
       if (animationFrameRef.current) {
@@ -312,7 +315,7 @@ void main(){gl_Position=position;}`;
         rendererRef.current.reset();
       }
     };
-  }, []);
+  }, [palette]);
 
   return canvasRef;
 };
@@ -323,9 +326,10 @@ const Hero: React.FC<HeroProps> = ({
   headline,
   subtitle,
   buttons,
-  className = ""
+  className = "",
+  shaderPalette = "orange"
 }) => {
-  const canvasRef = useShaderBackground();
+  const canvasRef = useShaderBackground(shaderPalette);
 
   return (
     <div className={`relative w-full h-screen overflow-hidden bg-black ${className}`}>
@@ -523,9 +527,9 @@ void main(void) {
 		uv+=.1*cos(i*vec2(.1+.01*i, .8)+i*i+T*.5+.1*uv.x);
 		vec2 p=uv;
 		float d=length(p);
-		col+=.00125/d*(cos(sin(i)*vec3(1,2,3))+1.);
+		col+=.000625/d*(cos(sin(i)*vec3(1,2,3))+1.);
 		float b=noise(i+p+bg*1.731);
-		col+=.002*b/length(max(p,vec2(b*p.x*.02,p.y)));
+		col+=.001*b/length(max(p,vec2(b*p.x*.02,p.y)));
 		col=mix(col,vec3(bg*.25,bg*.137,bg*.05),d);
 	}
 	O=vec4(col,1);
