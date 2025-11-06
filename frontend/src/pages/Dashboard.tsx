@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { SplineScene } from "@/components/ui/splite";
 import { Card } from "@/components/ui/card";
+import { Header1 } from "@/components/ui/header";
 
 export default function Dashboard() {
   const { user, loading, signOut } = useAuth();
@@ -36,7 +37,8 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-8">
+      <Header1 />
+      <div className="container mx-auto px-4 py-8 pt-24">
         <div className="max-w-6xl mx-auto space-y-8">
           {/* 3D Robot Scene */}
           <Card className="w-full h-[500px] bg-black/[0.96] relative overflow-hidden">
