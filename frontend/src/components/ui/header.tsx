@@ -68,7 +68,7 @@ function Header1() {
 
     const [isOpen, setOpen] = useState(false);
     return (
-        <header className="w-full z-50 fixed top-0 left-0 bg-background">
+        <header className="w-full z-50 fixed top-0 left-0 bg-zinc-900/95 backdrop-blur-sm border-b border-zinc-800">
             <div className="container relative mx-auto min-h-20 flex gap-4 flex-row lg:grid lg:grid-cols-3 items-center">
                 <div className="justify-start items-center gap-4 lg:flex hidden flex-row">
                     <NavigationMenu className="flex justify-start items-start">
@@ -78,24 +78,24 @@ function Header1() {
                                     {item.href ? (
                                         <>
                                             <NavigationMenuLink>
-                                                <Button variant="ghost">{item.title}</Button>
+                                                <Button variant="ghost" className="text-neutral-200 hover:text-white hover:bg-zinc-800">{item.title}</Button>
                                             </NavigationMenuLink>
                                         </>
                                     ) : (
                                         <>
-                                            <NavigationMenuTrigger className="font-medium text-sm">
+                                            <NavigationMenuTrigger className="font-medium text-sm text-neutral-200 hover:text-white hover:bg-zinc-800">
                                                 {item.title}
                                             </NavigationMenuTrigger>
                                             <NavigationMenuContent className="!w-[450px] p-4">
                                                 <div className="flex flex-col lg:grid grid-cols-2 gap-4">
                                                     <div className="flex flex-col h-full justify-between">
                                                         <div className="flex flex-col">
-                                                            <p className="text-base">{item.title}</p>
-                                                            <p className="text-muted-foreground text-sm">
+                                                            <p className="text-base text-white">{item.title}</p>
+                                                            <p className="text-neutral-400 text-sm">
                                                                 {item.description}
                                                             </p>
                                                         </div>
-                                                        <Button size="sm" className="mt-10">
+                                                        <Button size="sm" className="mt-10 bg-indigo-600 hover:bg-indigo-700">
                                                             Book a call today
                                                         </Button>
                                                     </div>
@@ -104,10 +104,10 @@ function Header1() {
                                                             <NavigationMenuLink
                                                                 href={subItem.href}
                                                                 key={subItem.title}
-                                                                className="flex flex-row justify-between items-center hover:bg-muted py-2 px-4 rounded"
+                                                                className="flex flex-row justify-between items-center hover:bg-zinc-800 py-2 px-4 rounded text-neutral-200"
                                                             >
                                                                 <span>{subItem.title}</span>
-                                                                <MoveRight className="w-4 h-4 text-muted-foreground" />
+                                                                <MoveRight className="w-4 h-4 text-neutral-400" />
                                                             </NavigationMenuLink>
                                                         ))}
                                                     </div>
@@ -121,22 +121,22 @@ function Header1() {
                     </NavigationMenu>
                 </div>
                 <div className="flex lg:justify-center">
-                    <p className="font-semibold">SerialFounder</p>
+                    <p className="font-semibold text-white">SerialFounder</p>
                 </div>
                 <div className="flex justify-end w-full gap-4">
-                    <Button variant="ghost" className="hidden md:inline">
+                    <Button variant="ghost" className="hidden md:inline text-neutral-200 hover:text-white hover:bg-zinc-800">
                         Book a demo
                     </Button>
-                    <div className="border-r hidden md:inline"></div>
-                    <Button variant="outline">Sign in</Button>
-                    <Button>Get started</Button>
+                    <div className="border-r border-zinc-700 hidden md:inline"></div>
+                    <Button variant="outline" className="border-zinc-700 text-neutral-200 hover:bg-zinc-800 hover:text-white">Sign in</Button>
+                    <Button className="bg-indigo-600 hover:bg-indigo-700">Get started</Button>
                 </div>
                 <div className="flex w-12 shrink lg:hidden items-end justify-end">
-                    <Button variant="ghost" onClick={() => setOpen(!isOpen)}>
+                    <Button variant="ghost" onClick={() => setOpen(!isOpen)} className="text-neutral-200 hover:text-white hover:bg-zinc-800">
                         {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                     </Button>
                     {isOpen && (
-                        <div className="absolute top-20 border-t flex flex-col w-full right-0 bg-background shadow-lg py-4 container gap-8">
+                        <div className="absolute top-20 border-t border-zinc-800 flex flex-col w-full right-0 bg-zinc-900/95 backdrop-blur-sm shadow-lg py-4 container gap-8">
                             {navigationItems.map((item) => (
                                 <div key={item.title}>
                                     <div className="flex flex-col gap-2">
@@ -145,11 +145,11 @@ function Header1() {
                                                 href={item.href}
                                                 className="flex justify-between items-center"
                                             >
-                                                <span className="text-lg">{item.title}</span>
-                                                <MoveRight className="w-4 h-4 stroke-1 text-muted-foreground" />
+                                                <span className="text-lg text-neutral-200">{item.title}</span>
+                                                <MoveRight className="w-4 h-4 stroke-1 text-neutral-400" />
                                             </Link>
                                         ) : (
-                                            <p className="text-lg">{item.title}</p>
+                                            <p className="text-lg text-neutral-200">{item.title}</p>
                                         )}
                                         {item.items &&
                                             item.items.map((subItem) => (
@@ -158,10 +158,10 @@ function Header1() {
                                                     href={subItem.href}
                                                     className="flex justify-between items-center"
                                                 >
-                                                    <span className="text-muted-foreground">
+                                                    <span className="text-neutral-400">
                                                         {subItem.title}
                                                     </span>
-                                                    <MoveRight className="w-4 h-4 stroke-1" />
+                                                    <MoveRight className="w-4 h-4 stroke-1 text-neutral-400" />
                                                 </Link>
                                             ))}
                                     </div>
