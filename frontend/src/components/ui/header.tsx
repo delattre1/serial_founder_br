@@ -164,7 +164,7 @@ function Header1({ user, onSignOut }: Header1Props = {}) {
                                     <div className="flex flex-col gap-2">
                                         {item.href ? (
                                             <Link
-                                                href={item.href}
+                                                to={item.href}
                                                 className="flex justify-between items-center"
                                             >
                                                 <span className="text-lg text-neutral-200">{item.title}</span>
@@ -177,7 +177,7 @@ function Header1({ user, onSignOut }: Header1Props = {}) {
                                             item.items.map((subItem) => (
                                                 <Link
                                                     key={subItem.title}
-                                                    href={subItem.href}
+                                                    to={subItem.href}
                                                     className="flex justify-between items-center"
                                                 >
                                                     <span className="text-neutral-400">

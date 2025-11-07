@@ -82,10 +82,7 @@ body {
   padding: 0;
   width: 100%;
   min-height: 100%;
-}
-
-body {
-  background-color: hsl(var(--background));
+  background-color: #000000;
   color: hsl(var(--foreground));
 }
 

@@ -111,7 +111,7 @@ export default function Dashboard() {
           </div>
 
           {/* Desktop Call to Action Buttons */}
-          <div className="hidden md:flex flex-row gap-6 justify-center items-center mt-8">
+          <div className="hidden md:flex flex-row gap-6 justify-center items-center mt-24">
             <button
               onClick={() => window.open('https://discord.gg/pAuaaXmrr9', '_blank')}
               className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 text-lg font-semibold text-white bg-[#5865F2] hover:bg-[#4752C4] rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105"
