@@ -42,15 +42,15 @@ export default function Dashboard() {
         <div className="max-w-6xl mx-auto space-y-8">
           {/* 3D Robot Scene */}
           <div className="w-full h-[500px] relative overflow-hidden">
-            <div className="flex h-full">
+            <div className="flex flex-col md:flex-row h-full">
               {/* Left content */}
-              <div className="flex-1 p-8 relative z-10 flex flex-col justify-center">
+              <div className="flex-1 p-8 pb-0 md:pb-8 relative z-10 flex flex-col justify-center">
                 <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
                   Bem-vindo à Comunidade
                 </h1>
                 <p className="mt-4 text-neutral-300 max-w-lg">
-                  Você agora faz parte da Serial Founders Brasil. Transforme suas ideias em produtos reais
-                  e junte-se a outros desenvolvedores que estão construindo o futuro.
+                  Você agora faz parte da Serial Founders Brasil.<br />
+                  Transforme suas ideias em produtos reais e junte-se a outros desenvolvedores que estão construindo o futuro.
                 </p>
               </div>
 

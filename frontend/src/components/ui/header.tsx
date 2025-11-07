@@ -125,7 +125,7 @@ function Header1({ user, onSignOut }: Header1Props = {}) {
                         </NavigationMenuList>
                     </NavigationMenu>
                 </div>
-                <div className="flex lg:justify-center">
+                <div className="flex lg:justify-center pl-4 lg:pl-0">
                     <p className="font-semibold text-white">SerialFounder</p>
                 </div>
                 <div className="flex justify-end w-full gap-4">
