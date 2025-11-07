@@ -13,7 +13,12 @@ import { Menu, MoveRight, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function Header1() {
+interface Header1Props {
+    user?: any;
+    onSignOut?: () => void;
+}
+
+function Header1({ user, onSignOut }: Header1Props = {}) {
     const navigationItems = [
         {
             title: "Home",
@@ -124,12 +129,29 @@ function Header1() {
                     <p className="font-semibold text-white">SerialFounder</p>
                 </div>
                 <div className="flex justify-end w-full gap-4">
-                    <Button variant="ghost" className="hidden md:inline text-neutral-200 hover:text-white hover:bg-zinc-800">
-                        Book a demo
-                    </Button>
-                    <div className="border-r border-zinc-700 hidden md:inline"></div>
-                    <Button variant="outline" className="border-zinc-700 text-neutral-200 hover:bg-zinc-800 hover:text-white">Sign in</Button>
-                    <Button className="bg-indigo-600 hover:bg-indigo-700">Get started</Button>
+                    {user ? (
+                        <>
+                            <span className="hidden md:inline text-neutral-200 self-center">
+                                {user.user_metadata?.full_name || user.email}
+                            </span>
+                            <Button
+                                variant="outline"
+                                className="border-zinc-700 text-neutral-200 hover:bg-zinc-800 hover:text-white"
+                                onClick={onSignOut}
+                            >
+                                Sair
+                            </Button>
+                        </>
+                    ) : (
+                        <>
+                            <Button variant="ghost" className="hidden md:inline text-neutral-200 hover:text-white hover:bg-zinc-800">
+                                Book a demo
+                            </Button>
+                            <div className="border-r border-zinc-700 hidden md:inline"></div>
+                            <Button variant="outline" className="border-zinc-700 text-neutral-200 hover:bg-zinc-800 hover:text-white">Sign in</Button>
+                            <Button className="bg-indigo-600 hover:bg-indigo-700">Get started</Button>
+                        </>
+                    )}
                 </div>
                 <div className="flex w-12 shrink lg:hidden items-end justify-end">
                     <Button variant="ghost" onClick={() => setOpen(!isOpen)} className="text-neutral-200 hover:text-white hover:bg-zinc-800">
