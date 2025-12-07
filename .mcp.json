@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "supabase": {
+      "type": "http",
+      "url": "https://mcp.supabase.com/mcp?project_ref=iayelfzsbvwrotuaazcw"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest", "--executable-path=/usr/bin/brave", "--extension"],
+      "env": {
+        "PLAYWRIGHT_MCP_EXTENSION_TOKEN": "TyevOtHAmKB0yBbFmy5tTjvXaGQO2NHs_iZOBrv09nM"
+      }
+    }
+  }
+}
