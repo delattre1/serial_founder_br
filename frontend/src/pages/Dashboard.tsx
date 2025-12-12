@@ -38,8 +38,14 @@ export default function Dashboard() {
   }, []);
 
   const handleSignOut = async () => {
-    await signOut();
-    navigate('/');
+    console.log('Sign out clicked');
+    try {
+      await signOut();
+      console.log('Sign out successful');
+      navigate('/');
+    } catch (err) {
+      console.error('Sign out error:', err);
+    }
   };
 
   const openDiscord = () => window.open('https://discord.gg/pAuaaXmrr9', '_blank');
@@ -192,7 +198,7 @@ export default function Dashboard() {
         </div>
 
         {/* Header */}
-        <header className="border-b-3 border-white p-4 flex justify-between items-center">
+        <header className="border-b-3 border-white p-4 flex justify-between items-center relative z-[101]">
           <div className="flex items-center gap-4">
             <span className="text-lime-400 text-xl">[</span>
             <span className="font-brutal-display text-2xl tracking-tight">SERIAL_FOUNDERS</span>
@@ -203,8 +209,9 @@ export default function Dashboard() {
               USER: <span className="text-white">{userName.toUpperCase()}</span>
             </span>
             <button
+              type="button"
               onClick={handleSignOut}
-              className="border-2 border-white px-4 py-2 text-sm hover:bg-white hover:text-black transition-colors duration-100 tracking-wider"
+              className="border-2 border-white px-4 py-2 text-sm hover:bg-white hover:text-black transition-colors duration-100 tracking-wider cursor-pointer"
             >
               [SAIR]
             </button>

@@ -223,7 +223,7 @@ export default function Home() {
           {/* CTA Button */}
           <button
             onClick={handleGoogleSignIn}
-            className="brutal-border bg-black px-8 md:px-12 py-4 md:py-5 text-white hover-shift transition-all duration-100 group mb-8"
+            className="brutal-border bg-black px-8 md:px-12 py-4 md:py-5 text-lime-400 hover-shift transition-all duration-100 group mb-8"
           >
             <div className="flex items-center gap-4">
               <svg className="w-6 h-6" viewBox="0 0 24 24">
@@ -235,7 +235,7 @@ export default function Home() {
               <span className="font-brutal-display text-xl md:text-2xl tracking-wide">
                 ENTRAR COM GOOGLE
               </span>
-              <span className="text-lime-400 group-hover:translate-x-2 transition-transform">→</span>
+              <span className="group-hover:translate-x-2 transition-transform">→</span>
             </div>
           </button>
 
