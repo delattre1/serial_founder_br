@@ -344,7 +344,7 @@ const Hero: React.FC<HeroProps> = ({
             transform: translateY(0);
           }
         }
-        
+
         @keyframes fade-in-up {
           from {
             opacity: 0;
@@ -355,38 +355,38 @@ const Hero: React.FC<HeroProps> = ({
             transform: translateY(0);
           }
         }
-        
+
         .animate-fade-in-down {
           animation: fade-in-down 0.8s ease-out forwards;
         }
-        
+
         .animate-fade-in-up {
           animation: fade-in-up 0.8s ease-out forwards;
           opacity: 0;
         }
-        
+
         .animation-delay-200 {
           animation-delay: 0.2s;
         }
-        
+
         .animation-delay-400 {
           animation-delay: 0.4s;
         }
-        
+
         .animation-delay-600 {
           animation-delay: 0.6s;
         }
-        
+
         .animation-delay-800 {
           animation-delay: 0.8s;
         }
-        
+
         @keyframes gradient-shift {
           0% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
           100% { background-position: 0% 50%; }
         }
-        
+
         .animate-gradient {
           background-size: 200% 200%;
           animation: gradient-shift 3s ease infinite;
@@ -443,7 +443,7 @@ const Hero: React.FC<HeroProps> = ({
           {buttons && (
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10 animate-fade-in-up animation-delay-800">
               {buttons.primary && (
-                <button 
+                <button
                   onClick={buttons.primary.onClick}
                   className="px-8 py-4 bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-black rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-orange-500/25"
                 >
@@ -451,7 +451,7 @@ const Hero: React.FC<HeroProps> = ({
                 </button>
               )}
               {buttons.secondary && (
-                <button 
+                <button
                   onClick={buttons.secondary.onClick}
                   className="px-8 py-4 bg-orange-500/10 hover:bg-orange-500/20 border border-orange-300/30 hover:border-orange-300/50 text-orange-100 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm"
                 >
