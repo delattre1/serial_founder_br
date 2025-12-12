@@ -310,7 +310,7 @@ export default function Home() {
         <footer className="border-t-2 border-neutral-800 p-6">
           <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-neutral-600 text-sm">
-              <span className="cursor-blink">SERIAL_FOUNDERS_BR</span> // 2024
+              <span className="cursor-blink">SERIAL_FOUNDERS_BR</span> // 2025
             </div>
             <div className="text-neutral-700 text-xs tracking-widest">
               BUILT BY BUILDERS, FOR BUILDERS
