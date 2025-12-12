@@ -2,10 +2,24 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
+const BRUTAL_MESSAGES = [
+  { text: "Sem desculpas. Sem mimimi. So", highlight: "EXECUCAO" },
+  { text: "Feito e melhor que", highlight: "PERFEITO" },
+  { text: "Seu medo e o unico", highlight: "OBSTACULO" },
+  { text: "Enquanto voce planeja, outros", highlight: "LANCAM" },
+  { text: "Ideias sao lixo. So vale a", highlight: "ACAO" },
+  { text: "O mercado nao liga pro seu", highlight: "EGO" },
+  { text: "Menos conversa. Mais", highlight: "CODIGO" },
+  { text: "Perfeccionismo e", highlight: "PROCRASTINACAO" },
+  { text: "Feedback real >", highlight: "SUPOSICOES" },
+  { text: "Tempo e o unico recurso", highlight: "FINITO" },
+];
+
 export default function Dashboard() {
   const { user, loading, signOut } = useAuth();
   const navigate = useNavigate();
   const [glitchActive, setGlitchActive] = useState(false);
+  const [messageIndex, setMessageIndex] = useState(0);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -13,10 +27,11 @@ export default function Dashboard() {
     }
   }, [user, loading, navigate]);
 
-  // Random glitch effect
+  // Random glitch effect + rotate message
   useEffect(() => {
     const glitchInterval = setInterval(() => {
       setGlitchActive(true);
+      setMessageIndex((prev) => (prev + 1) % BRUTAL_MESSAGES.length);
       setTimeout(() => setGlitchActive(false), 150);
     }, 4000 + Math.random() * 3000);
     return () => clearInterval(glitchInterval);
@@ -213,8 +228,10 @@ export default function Dashboard() {
                 Agora voce faz parte de um coletivo de
                 <span className="text-lime-400"> BUILDERS</span> obstinados.
                 <br />
-                Sem desculpas. Sem mimimi. So
-                <span className="text-white font-bold"> EXECUCAO</span>.
+                <span className="inline-block min-w-[280px] md:min-w-[400px]">
+                  {BRUTAL_MESSAGES[messageIndex].text}
+                  <span className="text-white font-bold"> {BRUTAL_MESSAGES[messageIndex].highlight}</span>.
+                </span>
               </p>
             </div>
           </div>
