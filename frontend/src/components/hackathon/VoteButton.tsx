@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChevronUp } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -20,12 +21,26 @@ export function VoteButton({
   onUnvote,
 }: VoteButtonProps) {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [localCount, setLocalCount] = useState(voteCount);
   const [localHasVoted, setLocalHasVoted] = useState(hasVoted);
 
+  // Sync local state with props when they change
+  useEffect(() => {
+    setLocalCount(voteCount);
+    setLocalHasVoted(hasVoted);
+  }, [voteCount, hasVoted]);
+
   const handleClick = async () => {
-    if (!user || disabled || isLoading) return;
+    console.log('[VoteButton] Click - user:', user?.id ?? 'NULL');
+    if (disabled || isLoading) return;
+
+    if (!user) {
+      console.log('[VoteButton] No user, redirecting to login');
+      navigate('/');
+      return;
+    }
 
     setIsLoading(true);
 
@@ -61,7 +76,7 @@ export function VoteButton({
   return (
     <button
       onClick={handleClick}
-      disabled={disabled || isLoading || !user}
+      disabled={disabled || isLoading}
       className={`${baseClasses} bg-transparent text-neutral-400 border-2 border-neutral-600 hover:border-lime-400 hover:text-lime-400 disabled:opacity-50 disabled:cursor-not-allowed`}
     >
       <ChevronUp className="w-4 h-4" />

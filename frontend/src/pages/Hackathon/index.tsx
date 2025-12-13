@@ -42,7 +42,7 @@ const SAMPLE_PROJECTS = [
 ];
 
 export default function HackathonPage() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [projects, setProjects] = useState<Project[]>([]);
   const [hasProject, setHasProject] = useState(false);
   const [isVotingOpen, setIsVotingOpen] = useState(false);
@@ -73,6 +73,9 @@ export default function HackathonPage() {
   };
 
   useEffect(() => {
+    // Wait for auth to finish loading before fetching
+    if (authLoading) return;
+
     async function fetchData() {
       // Fetch all submitted projects from Supabase with vote counts
       const { data: projectsData } = await supabase
@@ -141,18 +144,19 @@ export default function HackathonPage() {
         setUserVotesRemaining(3 - (voteCount || 0));
       }
 
-      // Check if voting period is open
-      const now = new Date();
-      const votingStart = new Date('2024-12-14T20:00:00');
-      const votingEnd = new Date('2024-12-14T23:59:59');
-      setIsVotingOpen(now >= votingStart && now <= votingEnd);
+      // Voting is always open for now
+      setIsVotingOpen(true);
     }
 
     fetchData();
-  }, [user]);
+  }, [user, authLoading]);
 
   const handleVote = async (projectId: string) => {
     if (!user || userVotesRemaining <= 0) return;
+
+    // Check if user already voted for this project
+    const project = projects.find((p) => p.id === projectId);
+    if (project?.has_voted) return;
 
     const { error } = await supabase
       .from('hackathon_votes')
@@ -160,6 +164,15 @@ export default function HackathonPage() {
 
     if (error) {
       console.error('Error voting:', error);
+      // If it's a duplicate key error, just update the UI state
+      if (error.code === '23505') {
+        setProjects((prev) =>
+          prev.map((p) =>
+            p.id === projectId ? { ...p, has_voted: true } : p
+          )
+        );
+        return;
+      }
       alert('Erro ao votar. Tente novamente.');
       return;
     }

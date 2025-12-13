@@ -17,20 +17,39 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Get initial session
+    let initialLoadComplete = false;
+
+    console.log('[AUTH] Starting auth initialization...');
+
+    // Get initial session - this is the source of truth for initial load
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('[AUTH] getSession returned:', {
+        hasSession: !!session,
+        userId: session?.user?.id ?? 'null'
+      });
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
+      initialLoadComplete = true;
+      console.log('[AUTH] Initial load complete, loading set to false');
     });
 
-    // Listen for auth changes
+    // Listen for auth changes (sign in/out after initial load)
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log('[AUTH] onAuthStateChange:', {
+        event,
+        hasSession: !!session,
+        userId: session?.user?.id ?? 'null',
+        initialLoadComplete
+      });
+      // Only update if initial load is complete, to avoid race condition
+      // where this fires before getSession returns
+      if (initialLoadComplete) {
+        setSession(session);
+        setUser(session?.user ?? null);
+      }
     });
 
     return () => subscription.unsubscribe();

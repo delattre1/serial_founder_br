@@ -13,14 +13,27 @@ interface ProjectDetail extends Project {
 
 export default function ProjectDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [project, setProject] = useState<ProjectDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [showIframe, setShowIframe] = useState(false);
   const [iframeLoaded, setIframeLoaded] = useState(false);
 
   useEffect(() => {
+    console.log('[ProjectDetail] useEffect triggered:', {
+      authLoading,
+      userId: user?.id ?? 'null',
+      projectSlug: id
+    });
+
+    // Wait for auth to finish loading before fetching
+    if (authLoading) {
+      console.log('[ProjectDetail] Auth still loading, skipping fetch');
+      return;
+    }
+
     async function fetchProject() {
+      console.log('[ProjectDetail] fetchProject starting with user:', user?.id ?? 'null');
       if (!id) return;
 
       // Fetch project by slug first, then try by id
@@ -56,17 +69,27 @@ export default function ProjectDetailPage() {
 
         // Check if current user has voted
         let hasVoted = false;
+        console.log('[ProjectDetail] Checking vote for user:', user?.id ?? 'null');
         if (user) {
-          const { data: vote } = await supabase
+          const { data: vote, error: voteError } = await supabase
             .from('hackathon_votes')
             .select('id')
             .eq('project_id', data.id)
             .eq('user_id', user.id)
             .maybeSingle();
+          console.log('[ProjectDetail] Vote query result:', {
+            projectId: data.id,
+            userId: user.id,
+            voteFound: !!vote,
+            voteData: vote,
+            error: voteError
+          });
           hasVoted = !!vote;
+        } else {
+          console.log('[ProjectDetail] No user - skipping vote check');
         }
 
-        setProject({
+        const projectState = {
           id: data.id,
           name: data.name,
           slug: data.slug,
@@ -83,17 +106,26 @@ export default function ProjectDetailPage() {
           has_voted: hasVoted,
           is_solo: data.is_solo,
           team_members: Array.isArray(data.team_members) ? data.team_members.join(', ') : '',
+        };
+        console.log('[ProjectDetail] Setting project state:', {
+          name: projectState.name,
+          vote_count: projectState.vote_count,
+          has_voted: projectState.has_voted
         });
+        setProject(projectState);
       }
 
       setLoading(false);
     }
 
     fetchProject();
-  }, [id, user]);
+  }, [id, user, authLoading]);
 
   const handleVote = async () => {
     if (!project || !user) return;
+
+    // Check if user already voted for this project
+    if (project.has_voted) return;
 
     const { error } = await supabase
       .from('hackathon_votes')
@@ -101,6 +133,13 @@ export default function ProjectDetailPage() {
 
     if (error) {
       console.error('Error voting:', error);
+      // If it's a duplicate key error, just update the UI state
+      if (error.code === '23505') {
+        setProject((prev) =>
+          prev ? { ...prev, has_voted: true } : null
+        );
+        return;
+      }
       alert('Erro ao votar. Tente novamente.');
       return;
     }
