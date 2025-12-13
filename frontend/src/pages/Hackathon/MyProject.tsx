@@ -45,6 +45,7 @@ export default function MyProjectPage() {
           is_solo: data.is_solo,
           team_members: Array.isArray(data.team_members) ? data.team_members.join(', ') : '',
           screenshot_url: data.screenshot_url || '',
+          social_handle: data.social_handle || '',
           is_submitted: data.is_submitted,
         });
       }
@@ -86,6 +87,7 @@ export default function MyProjectPage() {
           screenshot_url: data.screenshot_url || null,
           team_members: data.is_solo ? [] : data.team_members.split(',').map((m) => m.trim()),
           is_solo: data.is_solo,
+          social_handle: data.social_handle || null,
           is_submitted: true,
           submitted_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
@@ -120,6 +122,7 @@ export default function MyProjectPage() {
           screenshot_url: data.screenshot_url || null,
           team_members: data.is_solo ? [] : data.team_members.split(',').map((m) => m.trim()),
           is_solo: data.is_solo,
+          social_handle: data.social_handle || null,
           updated_at: new Date().toISOString(),
         })
         .eq('id', project.id);

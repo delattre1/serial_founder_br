@@ -20,6 +20,7 @@ export interface ProjectFormData {
   is_solo: boolean;
   team_members: string;
   screenshot_url: string;
+  social_handle: string;
 }
 
 export function RegistrationForm({
@@ -40,6 +41,7 @@ export function RegistrationForm({
     is_solo: initialData?.is_solo ?? true,
     team_members: initialData?.team_members || '',
     screenshot_url: initialData?.screenshot_url || '',
+    social_handle: initialData?.social_handle || '',
   });
 
   const [charCount, setCharCount] = useState(formData.short_description.length);
@@ -143,6 +145,27 @@ export function RegistrationForm({
           className="w-full brutal-input"
           placeholder="MeuSaaS"
         />
+      </div>
+
+      {/* Social Handle */}
+      <div>
+        <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
+          Seu @ <span className="text-neutral-600">(Twitter, Instagram, etc)</span>
+        </label>
+        <div className="relative">
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 font-brutal-mono">@</span>
+          <input
+            type="text"
+            name="social_handle"
+            value={formData.social_handle}
+            onChange={handleChange}
+            className="w-full brutal-input pl-8"
+            placeholder="seuhandle"
+          />
+        </div>
+        <p className="font-brutal-mono text-neutral-600 text-xs mt-2">
+          Sera exibido na pagina do projeto
+        </p>
       </div>
 
       {/* Short Description */}

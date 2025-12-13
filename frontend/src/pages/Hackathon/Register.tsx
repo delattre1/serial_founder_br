@@ -88,6 +88,7 @@ export default function RegisterPage() {
       paid_entry: wantsToPay,
       is_submitted: isSubmitted,
       submitted_at: isSubmitted ? new Date().toISOString() : null,
+      social_handle: data.social_handle || null,
     };
 
     const { data: project, error } = await supabase

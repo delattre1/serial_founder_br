@@ -10,8 +10,10 @@ export interface Project {
   short_description: string;
   project_url: string;
   screenshot_url?: string;
+  github_url?: string;
   user_id: string;
   username?: string;
+  social_handle?: string;
   vote_count: number;
   has_voted?: boolean;
   is_solo: boolean;
@@ -124,7 +126,7 @@ export function ProjectCard({ project, showVoting = false, onVote, onUnvote }: P
         )}
 
         <div className="font-brutal-mono text-xs text-neutral-600">
-          @{project.username || 'anon'}
+          {project.social_handle ? `@${project.social_handle}` : ''}
         </div>
       </div>
     </div>

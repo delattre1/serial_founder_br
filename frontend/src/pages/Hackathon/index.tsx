@@ -110,7 +110,8 @@ export default function HackathonPage() {
               project_url: p.project_url,
               screenshot_url: p.screenshot_url || '',
               user_id: p.user_id,
-              username: '', // Could fetch from auth.users if needed
+              username: '',
+              social_handle: p.social_handle || '',
               vote_count: count || 0,
               has_voted: hasVoted,
               is_solo: p.is_solo,

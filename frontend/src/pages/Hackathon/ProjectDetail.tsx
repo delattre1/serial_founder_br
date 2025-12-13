@@ -8,6 +8,7 @@ import { VoteButton, Project } from '@/components/hackathon';
 interface ProjectDetail extends Project {
   full_description?: string;
   how_it_was_built?: string;
+  social_handle?: string;
 }
 
 export default function ProjectDetailPage() {
@@ -76,7 +77,8 @@ export default function ProjectDetailPage() {
           github_url: data.github_url || '',
           screenshot_url: data.screenshot_url || '',
           user_id: data.user_id,
-          username: '', // Could fetch from auth if needed
+          username: '',
+          social_handle: data.social_handle || '',
           vote_count: count || 0,
           has_voted: hasVoted,
           is_solo: data.is_solo,
@@ -188,8 +190,12 @@ export default function ProjectDetailPage() {
               {project.name.toUpperCase()}
             </h1>
             <div className="flex flex-wrap items-center gap-4 text-neutral-500 font-brutal-mono text-sm">
-              <span>por @{project.username}</span>
-              <span className="text-neutral-700">•</span>
+              {project.social_handle && (
+                <>
+                  <span>por @{project.social_handle}</span>
+                  <span className="text-neutral-700">•</span>
+                </>
+              )}
               <span>{project.is_solo ? 'Solo' : `Equipe: ${project.team_members}`}</span>
             </div>
           </div>
