@@ -46,7 +46,7 @@ export default function HackathonPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [hasProject, setHasProject] = useState(false);
   const [isVotingOpen, setIsVotingOpen] = useState(false);
-  const [userVotesRemaining, setUserVotesRemaining] = useState(3);
+  const [userVoteCount, setUserVoteCount] = useState(0);
   const [isSeeding, setIsSeeding] = useState(false);
 
   const seedSampleProjects = async () => {
@@ -141,7 +141,7 @@ export default function HackathonPage() {
           .select('*', { count: 'exact', head: true })
           .eq('user_id', user.id);
 
-        setUserVotesRemaining(3 - (voteCount || 0));
+        setUserVoteCount(voteCount || 0);
       }
 
       // Voting is always open for now
@@ -152,7 +152,7 @@ export default function HackathonPage() {
   }, [user, authLoading]);
 
   const handleVote = async (projectId: string) => {
-    if (!user || userVotesRemaining <= 0) return;
+    if (!user) return;
 
     // Check if user already voted for this project
     const project = projects.find((p) => p.id === projectId);
@@ -184,7 +184,7 @@ export default function HackathonPage() {
           : p
       )
     );
-    setUserVotesRemaining((prev) => prev - 1);
+    setUserVoteCount((prev) => prev + 1);
   };
 
   const handleUnvote = async (projectId: string) => {
@@ -209,7 +209,7 @@ export default function HackathonPage() {
           : p
       )
     );
-    setUserVotesRemaining((prev) => prev + 1);
+    setUserVoteCount((prev) => prev - 1);
   };
 
   return (
@@ -226,9 +226,9 @@ export default function HackathonPage() {
           </Link>
 
           <div className="flex items-center gap-4">
-            {user && isVotingOpen && (
+            {user && isVotingOpen && userVoteCount > 0 && (
               <div className="font-brutal-mono text-xs text-lime-400">
-                {userVotesRemaining}/3 VOTOS
+                {userVoteCount} VOTO{userVoteCount !== 1 ? 'S' : ''}
               </div>
             )}
 
@@ -277,7 +277,7 @@ export default function HackathonPage() {
           {isVotingOpen && user && (
             <div className="brutal-border-lime bg-black/50 p-4 mb-8">
               <div className="font-brutal-mono text-sm text-lime-400">
-                // VOTACAO ABERTA - Vote nos seus 3 projetos favoritos!
+                // VOTACAO ABERTA - Vote nos seus projetos favoritos!
               </div>
             </div>
           )}
