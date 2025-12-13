@@ -52,7 +52,11 @@ export function RegistrationForm({
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // Strip leading @ from social handle
+    const cleanValue = name === 'social_handle' ? value.replace(/^@+/, '') : value;
+
+    setFormData((prev) => ({ ...prev, [name]: cleanValue }));
 
     if (name === 'short_description') {
       setCharCount(value.length);
@@ -152,17 +156,14 @@ export function RegistrationForm({
         <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
           Seu @ <span className="text-neutral-600">(Twitter, Instagram, etc)</span>
         </label>
-        <div className="relative">
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 font-brutal-mono">@</span>
-          <input
-            type="text"
-            name="social_handle"
-            value={formData.social_handle}
-            onChange={handleChange}
-            className="w-full brutal-input pl-8"
-            placeholder="seuhandle"
-          />
-        </div>
+        <input
+          type="text"
+          name="social_handle"
+          value={formData.social_handle}
+          onChange={handleChange}
+          className="w-full brutal-input"
+          placeholder="@seuhandle"
+        />
         <p className="font-brutal-mono text-neutral-600 text-xs mt-2">
           Sera exibido na pagina do projeto
         </p>
@@ -385,20 +386,12 @@ Descreva seu projeto aqui...
         </div>
       </div>
 
-      {/* Action buttons */}
-      <div className="flex flex-col sm:flex-row gap-4 pt-8 border-t-2 border-neutral-800">
-        <button
-          type="button"
-          onClick={handleDraft}
-          disabled={isSubmitting}
-          className="brutal-border bg-black px-8 py-4 text-white font-brutal-mono hover-shift disabled:opacity-50"
-        >
-          [SALVAR RASCUNHO]
-        </button>
+      {/* Action button */}
+      <div className="pt-8 border-t-2 border-neutral-800">
         <button
           type="submit"
           disabled={isSubmitting}
-          className="bg-lime-400 text-black brutal-border-inverse px-8 py-4 font-brutal-mono hover-shift-dark flex items-center justify-center gap-2 disabled:opacity-50"
+          className="brutal-border bg-black px-8 py-4 text-white font-brutal-mono hover-shift disabled:opacity-50 flex items-center justify-center gap-2"
         >
           {isSubmitting ? (
             <>
@@ -406,7 +399,7 @@ Descreva seu projeto aqui...
               ENVIANDO...
             </>
           ) : (
-            'SUBMETER PROJETO'
+            '[SUBMETER PROJETO]'
           )}
         </button>
       </div>
