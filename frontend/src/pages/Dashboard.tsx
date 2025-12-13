@@ -1,5 +1,5 @@
 import { useAuth } from '@/contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 const BRUTAL_MESSAGES = [
@@ -217,6 +217,29 @@ export default function Dashboard() {
             </button>
           </div>
         </header>
+
+        {/* Hackathon Banner */}
+        <Link to="/hackathon" className="block border-b-2 border-lime-400 bg-lime-400/10 hover:bg-lime-400/20 transition-colors">
+          <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="text-lime-400 text-xs tracking-widest font-brutal-mono animate-pulse">
+                /// ACONTECENDO AGORA ///
+              </div>
+              <div className="hidden md:block text-neutral-600">|</div>
+              <h3 className="font-brutal-display text-xl md:text-2xl">
+                1º HACKATON <span className="text-lime-400">RELAMPAGO</span>
+              </h3>
+            </div>
+            <div className="flex items-center gap-4">
+              <span className="font-brutal-mono text-neutral-400 text-sm">
+                DO ZERO AO DEPLOY em 48h • 12-14 DEZ
+              </span>
+              <span className="bg-lime-400 text-black px-4 py-2 font-brutal-display text-sm">
+                VER HACKATHON →
+              </span>
+            </div>
+          </div>
+        </Link>
 
         {/* Main content */}
         <main className="container mx-auto px-4 py-12 md:py-20">

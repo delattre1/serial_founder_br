@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Anton&display=swap');
 
 @layer base {
   :root {
@@ -89,4 +90,183 @@ body {
 #root {
   width: 100%;
   min-height: 100vh;
+}
+
+/* Brutalist Design System */
+.font-brutal-display {
+  font-family: 'Anton', Impact, sans-serif;
+}
+
+.font-brutal-mono {
+  font-family: 'Space Mono', 'Courier New', monospace;
+}
+
+/* Brutal borders */
+.brutal-border {
+  border: 3px solid white;
+  box-shadow: 6px 6px 0 0 rgba(163, 230, 53, 1);
+}
+
+.brutal-border-inverse {
+  border: 3px solid black;
+  box-shadow: 6px 6px 0 0 rgba(0, 0, 0, 1);
+}
+
+.brutal-border-lime {
+  border: 3px solid #a3e635;
+  box-shadow: 6px 6px 0 0 rgba(163, 230, 53, 0.5);
+}
+
+/* Hover effects */
+.hover-shift {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.hover-shift:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 0 rgba(163, 230, 53, 1);
+}
+
+.hover-shift-dark {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.hover-shift-dark:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 0 rgba(0, 0, 0, 1);
+}
+
+/* Text stroke effect */
+.text-stroke {
+  -webkit-text-stroke: 2px white;
+  color: transparent;
+}
+
+.text-stroke-lime {
+  -webkit-text-stroke: 2px #a3e635;
+  color: transparent;
+}
+
+/* Animations */
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-3px, 3px); }
+  40% { transform: translate(-3px, -3px); }
+  60% { transform: translate(3px, 3px); }
+  80% { transform: translate(3px, -3px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 6px 6px 0 0 rgba(163, 230, 53, 1); }
+  50% { box-shadow: 6px 6px 20px 0 rgba(163, 230, 53, 0.6); }
+}
+
+.animate-glitch {
+  animation: glitch 0.3s ease-in-out;
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Scanline overlay */
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to bottom, transparent, rgba(163, 230, 53, 0.15), transparent);
+  animation: scanline 3s linear infinite;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Noise texture overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 99;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Grid background */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(163, 230, 53, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(163, 230, 53, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Marquee */
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
+}
+
+/* Form inputs brutalist style */
+.brutal-input {
+  background: transparent;
+  border: 2px solid #525252;
+  color: white;
+  padding: 1rem;
+  font-family: 'Space Mono', monospace;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.brutal-input:focus {
+  outline: none;
+  border-color: #a3e635;
+  box-shadow: 4px 4px 0 0 rgba(163, 230, 53, 0.5);
+}
+
+.brutal-input::placeholder {
+  color: #525252;
+}
+
+/* Brutal textarea */
+.brutal-textarea {
+  background: transparent;
+  border: 2px solid #525252;
+  color: white;
+  padding: 1rem;
+  font-family: 'Space Mono', monospace;
+  resize: vertical;
+  min-height: 120px;
+}
+
+.brutal-textarea:focus {
+  outline: none;
+  border-color: #a3e635;
+  box-shadow: 4px 4px 0 0 rgba(163, 230, 53, 0.5);
 }

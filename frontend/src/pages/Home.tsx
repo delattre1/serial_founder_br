@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect, useState } from "react";
 
@@ -183,6 +183,29 @@ export default function Home() {
           </div>
         </header>
 
+        {/* Hackathon Banner - TOP */}
+        <Link to="/hackathon" className="block border-y-2 border-lime-400 bg-lime-400/10 hover:bg-lime-400/20 transition-colors">
+          <div className="container mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="text-lime-400 text-xs tracking-widest font-brutal-mono animate-pulse">
+                /// ACONTECENDO AGORA ///
+              </div>
+              <div className="hidden md:block text-neutral-600">|</div>
+              <h3 className="font-brutal-display text-xl md:text-2xl">
+                1º HACKATON <span className="text-lime-400">RELAMPAGO</span>
+              </h3>
+            </div>
+            <div className="flex items-center gap-4">
+              <span className="font-brutal-mono text-neutral-400 text-sm">
+                DO ZERO AO DEPLOY em 48h • 12-14 DEZ
+              </span>
+              <span className="bg-lime-400 text-black px-4 py-2 font-brutal-display text-sm">
+                VER HACKATHON →
+              </span>
+            </div>
+          </div>
+        </Link>
+
         {/* Main hero */}
         <main className="container mx-auto px-6 py-12 md:py-20 lg:py-32 flex flex-col items-center justify-center min-h-[70vh]">
 
@@ -312,8 +335,23 @@ export default function Home() {
             <div className="text-neutral-600 text-sm">
               <span className="cursor-blink">SERIAL_FOUNDERS_BR</span> // 2025
             </div>
-            <div className="text-neutral-700 text-xs tracking-widest">
-              BUILT BY BUILDERS, FOR BUILDERS
+            <div className="flex items-center gap-6">
+              <a
+                href="https://www.youtube.com/@danedelattre"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-neutral-600 text-xs tracking-widest hover:text-lime-400 transition-colors"
+              >
+                YOUTUBE
+              </a>
+              <a
+                href="https://www.instagram.com/danedelattre/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-neutral-600 text-xs tracking-widest hover:text-lime-400 transition-colors"
+              >
+                INSTAGRAM
+              </a>
             </div>
           </div>
         </footer>
