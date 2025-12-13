@@ -4,73 +4,12 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 import { HackathonHero, HackathonRules, ProjectGrid, Project } from '@/components/hackathon';
 
-// Sample projects for seeding
-const SAMPLE_PROJECTS = [
-  {
-    name: 'TaskFlow AI',
-    slug: 'taskflow-ai-demo',
-    short_description: 'Gerenciador de tarefas com IA que prioriza automaticamente seu backlog baseado em urgência e importância.',
-    full_description: '## O que é o TaskFlow AI?\n\nTaskFlow AI é um gerenciador de tarefas inteligente que usa IA para:\n\n- **Priorizar automaticamente** suas tarefas\n- **Sugerir deadlines** realistas\n- **Identificar blockers** e dependências',
-    how_it_was_built: '### Stack\n\n- **Frontend**: Next.js 14 + Tailwind CSS\n- **Backend**: Supabase\n- **IA**: Claude API',
-    project_url: 'https://taskflow-demo.vercel.app',
-    github_url: 'https://github.com/demo/taskflow',
-    is_solo: true,
-    team_members: [],
-  },
-  {
-    name: 'PixTracker',
-    slug: 'pixtracker-demo',
-    short_description: 'Dashboard para acompanhar todas suas transações PIX em tempo real com alertas e categorização automática.',
-    full_description: '## PixTracker\n\nDashboard completo para gerenciar suas transações PIX.\n\n### Funcionalidades\n\n- **Dashboard em tempo real**\n- **Categorização automática** usando IA\n- **Alertas personalizados**',
-    how_it_was_built: '### Stack\n\n- **Frontend**: React + Vite + Tailwind\n- **Backend**: Node.js + Express\n- **Database**: PostgreSQL',
-    project_url: 'https://pixtracker-demo.vercel.app',
-    github_url: 'https://github.com/demo/pixtracker',
-    is_solo: false,
-    team_members: ['Maria', 'Pedro'],
-  },
-  {
-    name: 'CodeReview Bot',
-    slug: 'codereview-bot-demo',
-    short_description: 'Bot que faz code review automático usando Claude e comenta diretamente no seu PR do GitHub.',
-    full_description: '## CodeReview Bot\n\nAutomatize seus code reviews com IA.\n\n### Como funciona?\n\n1. Instala o bot no seu repo\n2. Abre um PR\n3. Bot analisa e comenta sugestões',
-    how_it_was_built: '### Stack\n\n- **Bot**: GitHub App + Probot\n- **IA**: Claude API\n- **Deploy**: Railway',
-    project_url: 'https://codereview-bot.dev',
-    github_url: 'https://github.com/demo/codereview-bot',
-    is_solo: true,
-    team_members: [],
-  },
-];
-
 export default function HackathonPage() {
   const { user, loading: authLoading } = useAuth();
   const [projects, setProjects] = useState<Project[]>([]);
   const [hasProject, setHasProject] = useState(false);
   const [isVotingOpen, setIsVotingOpen] = useState(false);
   const [userVoteCount, setUserVoteCount] = useState(0);
-  const [isSeeding, setIsSeeding] = useState(false);
-
-  const seedSampleProjects = async () => {
-    if (!user) return;
-    setIsSeeding(true);
-
-    for (const project of SAMPLE_PROJECTS) {
-      const { error } = await supabase
-        .from('hackathon_projects')
-        .insert({
-          ...project,
-          user_id: user.id,
-          is_submitted: true,
-          submitted_at: new Date().toISOString(),
-        });
-
-      if (error) {
-        console.error(`Error inserting ${project.name}:`, error);
-      }
-    }
-
-    // Refresh the page to show new projects
-    window.location.reload();
-  };
 
   useEffect(() => {
     // Wait for auth to finish loading before fetching
@@ -289,18 +228,6 @@ export default function HackathonPage() {
             onUnvote={handleUnvote}
           />
 
-          {/* Seed button - show when less than 4 projects and user is logged in */}
-          {projects.length < 4 && user && (
-            <div className="mt-8 text-center">
-              <button
-                onClick={seedSampleProjects}
-                disabled={isSeeding}
-                className="border-2 border-dashed border-neutral-600 px-6 py-3 text-neutral-500 font-brutal-mono text-sm hover:border-lime-400 hover:text-lime-400 transition-colors disabled:opacity-50"
-              >
-                {isSeeding ? '// ADICIONANDO...' : '[DEV: ADICIONAR 3 PROJETOS DE EXEMPLO]'}
-              </button>
-            </div>
-          )}
         </div>
       </section>
 
