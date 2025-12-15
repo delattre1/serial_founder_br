@@ -270,3 +270,119 @@ body {
   border-color: #a3e635;
   box-shadow: 4px 4px 0 0 rgba(163, 230, 53, 0.5);
 }
+
+/* Winners Page Styles */
+.winner-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(250, 204, 21, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(163, 230, 53, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(251, 146, 60, 0.05) 0%, transparent 60%),
+    linear-gradient(rgba(163, 230, 53, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(163, 230, 53, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 50px 50px, 50px 50px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.winner-title {
+  text-shadow:
+    0 0 40px rgba(250, 204, 21, 0.5),
+    0 0 80px rgba(250, 204, 21, 0.3),
+    0 0 120px rgba(250, 204, 21, 0.1);
+  animation: winner-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes winner-glow {
+  0% {
+    text-shadow:
+      0 0 40px rgba(250, 204, 21, 0.5),
+      0 0 80px rgba(250, 204, 21, 0.3),
+      0 0 120px rgba(250, 204, 21, 0.1);
+  }
+  100% {
+    text-shadow:
+      0 0 60px rgba(250, 204, 21, 0.7),
+      0 0 100px rgba(250, 204, 21, 0.5),
+      0 0 140px rgba(250, 204, 21, 0.2);
+  }
+}
+
+/* Slide up animation */
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Confetti styles */
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+  overflow: hidden;
+}
+
+.confetti {
+  position: absolute;
+  top: -20px;
+  width: 10px;
+  height: 10px;
+  animation: confetti-fall 4s ease-in-out infinite;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-20px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Border width utility */
+.border-3 {
+  border-width: 3px;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

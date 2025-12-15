@@ -6,6 +6,7 @@ import HackathonPage from '@/pages/Hackathon';
 import RegisterPage from '@/pages/Hackathon/Register';
 import ProjectDetailPage from '@/pages/Hackathon/ProjectDetail';
 import MyProjectPage from '@/pages/Hackathon/MyProject';
+import WinnersPage from '@/pages/Hackathon/Winners';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/hackathon/register" element={<RegisterPage />} />
           <Route path="/hackathon/project/:id" element={<ProjectDetailPage />} />
           <Route path="/hackathon/my-project" element={<MyProjectPage />} />
+          <Route path="/hackathon/winners" element={<WinnersPage />} />
         </Routes>
       </AuthProvider>
     </Router>
