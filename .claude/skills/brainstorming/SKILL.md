@@ -30,9 +30,17 @@ Start by understanding the current project context, then ask questions one at a 
 ## After the Design
 
 **Documentation:**
-- Write the validated design to `specs/YYYY-MM-DD-<topic>-design.md`
-- Use elements-of-style:writing-clearly-and-concisely skill if available
-- Commit the design document to git
+- Create folder: `spec/YYYY-MM-DD-<project-name>/`
+- Split design into phase files:
+  - `00-overview.md` - Summary, key decisions, tech stack, links to phases
+  - `01-<phase-name>.md` - First implementation phase
+  - `02-<phase-name>.md` - Second phase
+  - ... (one file per logical phase)
+- Each phase file must include:
+  - Overview of the phase
+  - Technical details / code samples
+  - Acceptance criteria checklist
+- Commit the spec folder to git
 
 **Implementation (if continuing):**
 - Ask: "Ready to set up for implementation?"
