@@ -49,7 +49,7 @@ export default function Dashboard() {
   };
 
   const openDiscord = () => window.open('https://discord.gg/pAuaaXmrr9', '_blank');
-  const openWhatsApp = () => window.open('https://chat.whatsapp.com/J0ritHTWNcs5omHUskehHD', '_blank');
+  const openWhatsApp = () => window.open('https://chat.whatsapp.com/HG314pVj7F49iTh6KFKZW1', '_blank');
 
   if (loading) {
     return (
