@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react';
-import { Upload, Loader2, X, Image } from 'lucide-react';
+import { Upload, Loader2, X, Share2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/contexts/AuthContext';
+import { CURRENT } from '@/config/hackathon';
 
 interface RegistrationFormProps {
   onSubmit: (data: ProjectFormData) => void;
@@ -21,6 +22,8 @@ export interface ProjectFormData {
   team_members: string;
   screenshot_url: string;
   social_handle: string;
+  entry_shared: boolean;
+  entry_proof_url: string;
 }
 
 export function RegistrationForm({
@@ -42,11 +45,16 @@ export function RegistrationForm({
     team_members: initialData?.team_members || '',
     screenshot_url: initialData?.screenshot_url || '',
     social_handle: initialData?.social_handle || '',
+    entry_shared: initialData?.entry_shared ?? false,
+    entry_proof_url: initialData?.entry_proof_url || '',
   });
 
   const [charCount, setCharCount] = useState(formData.short_description.length);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [entryError, setEntryError] = useState<string | null>(null);
+
+  const isValidUrl = (value: string) => /^https?:\/\/.+/i.test(value.trim());
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -69,6 +77,17 @@ export function RegistrationForm({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!formData.entry_shared) {
+      setEntryError('Voce precisa repostar o video de anuncio e marcar a caixa para submeter.');
+      return;
+    }
+    if (formData.entry_proof_url.trim() && !isValidUrl(formData.entry_proof_url)) {
+      setEntryError('O link do repost precisa ser uma URL valida (https://...).');
+      return;
+    }
+
+    setEntryError(null);
     onSubmit(formData);
   };
 
@@ -386,8 +405,58 @@ Descreva seu projeto aqui...
         </div>
       </div>
 
-      {/* Action button */}
-      <div className="pt-8 border-t-2 border-neutral-800">
+      {/* Entry = repost the announcement video */}
+      <div className="brutal-border-lime bg-black p-6">
+        <div className="flex items-start gap-3 mb-4">
+          <Share2 className="w-6 h-6 text-lime-400 flex-shrink-0" />
+          <div>
+            <h3 className="font-brutal-display text-xl text-white">{CURRENT.entry.headline}</h3>
+            <p className="font-brutal-mono text-xs text-neutral-400 mt-1">
+              {CURRENT.entry.description}
+            </p>
+          </div>
+        </div>
+
+        <label className="flex items-start gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            name="entry_shared"
+            checked={formData.entry_shared}
+            onChange={(e) => {
+              setEntryError(null);
+              setFormData((prev) => ({ ...prev, entry_shared: e.target.checked }));
+            }}
+            className="mt-1 w-5 h-5 accent-lime-400 flex-shrink-0"
+          />
+          <span className="font-brutal-mono text-sm text-neutral-200">
+            {CURRENT.entry.checkboxLabel} *
+          </span>
+        </label>
+
+        <div className="mt-4">
+          <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
+            {CURRENT.entry.proofLabel}
+          </label>
+          <input
+            type="url"
+            name="entry_proof_url"
+            value={formData.entry_proof_url}
+            onChange={handleChange}
+            className="w-full brutal-input"
+            placeholder="https://instagram.com/..."
+          />
+          <p className="font-brutal-mono text-neutral-600 text-xs mt-2">
+            {CURRENT.entry.proofHint}
+          </p>
+        </div>
+
+        {entryError && (
+          <p className="font-brutal-mono text-red-500 text-sm mt-4">{entryError}</p>
+        )}
+      </div>
+
+      {/* Action buttons */}
+      <div className="pt-8 border-t-2 border-neutral-800 flex flex-wrap gap-4">
         <button
           type="submit"
           disabled={isSubmitting}
@@ -401,6 +470,15 @@ Descreva seu projeto aqui...
           ) : (
             '[SUBMETER PROJETO]'
           )}
+        </button>
+
+        <button
+          type="button"
+          onClick={handleDraft}
+          disabled={isSubmitting}
+          className="border-2 border-neutral-600 px-8 py-4 text-neutral-400 font-brutal-mono hover:border-lime-400 hover:text-lime-400 transition-colors disabled:opacity-50"
+        >
+          [SALVAR RASCUNHO]
         </button>
       </div>
     </form>

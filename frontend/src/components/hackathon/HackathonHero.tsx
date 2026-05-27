@@ -1,6 +1,7 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 import { Link } from 'react-router-dom';
+import { CURRENT } from '@/config/hackathon';
 
 interface HackathonHeroProps {
   hasProject?: boolean;
@@ -24,41 +25,41 @@ export function HackathonHero({ hasProject }: HackathonHeroProps) {
       {/* Marquee bar */}
       <div className="absolute top-0 left-0 right-0 bg-lime-400 text-black py-2 marquee-container">
         <div className="marquee-content font-brutal-mono text-sm tracking-widest">
-          /// HACKATON RELAMPAGO /// DO ZERO AO DEPLOY /// 12-14 DEZ 2024 /// SHIP OR DIE /// HACKATON RELAMPAGO /// DO ZERO AO DEPLOY /// 12-14 DEZ 2024 /// SHIP OR DIE ///&nbsp;
-          /// HACKATON RELAMPAGO /// DO ZERO AO DEPLOY /// 12-14 DEZ 2024 /// SHIP OR DIE /// HACKATON RELAMPAGO /// DO ZERO AO DEPLOY /// 12-14 DEZ 2024 /// SHIP OR DIE ///&nbsp;
+          {`${CURRENT.marquee} ${CURRENT.marquee} `}&nbsp;
+          {`${CURRENT.marquee} ${CURRENT.marquee} `}&nbsp;
         </div>
       </div>
 
       <div className="max-w-5xl mx-auto pt-12">
         {/* Event label */}
         <div className="text-lime-400 text-xs tracking-widest font-brutal-mono mb-4">
-          // 1º HACKATON RELAMPAGO
+          {CURRENT.label}
         </div>
 
         {/* Main headline */}
         <h1 className="font-brutal-display text-6xl md:text-8xl lg:text-9xl text-white leading-none mb-2">
-          DO ZERO
+          {CURRENT.tagline1}
         </h1>
         <h1 className="font-brutal-display text-6xl md:text-8xl lg:text-9xl text-stroke-lime leading-none mb-8">
-          AO DEPLOY
+          {CURRENT.tagline2}
         </h1>
 
         {/* Dates */}
         <div className="flex flex-wrap items-center gap-4 mb-8">
           <div className="brutal-border bg-black px-6 py-3">
-            <span className="font-brutal-mono text-lime-400 text-lg">12/12 22:30</span>
+            <span className="font-brutal-mono text-lime-400 text-lg">{CURRENT.dates.startLabel}</span>
           </div>
           <span className="text-neutral-600 text-2xl">→</span>
           <div className="brutal-border bg-black px-6 py-3">
-            <span className="font-brutal-mono text-lime-400 text-lg">14/12 20:00</span>
+            <span className="font-brutal-mono text-lime-400 text-lg">{CURRENT.dates.endLabel}</span>
           </div>
         </div>
 
         {/* Subinfo */}
         <div className="font-brutal-mono text-neutral-400 text-sm mb-8 space-y-1">
-          <p>// ABERTURA: 12/12 às 21h (YouTube + Instagram)</p>
-          <p>// APRESENTACOES + VOTACAO: 14/12 às 20h</p>
-          <p>// DISCORD: Aberto a partir das 12h</p>
+          {CURRENT.dates.subinfo.map((line, i) => (
+            <p key={i}>{line}</p>
+          ))}
         </div>
 
         {/* CTA Button */}

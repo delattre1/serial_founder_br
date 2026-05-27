@@ -4,6 +4,7 @@ import { ArrowLeft, ExternalLink, Eye, Loader2 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 import { RegistrationForm, ProjectFormData } from '@/components/hackathon';
+import { CURRENT_ROUND } from '@/config/hackathon';
 
 interface UserProject extends ProjectFormData {
   id: string;
@@ -26,6 +27,7 @@ export default function MyProjectPage() {
         .from('hackathon_projects')
         .select('*')
         .eq('user_id', user.id)
+        .eq('round', CURRENT_ROUND)
         .maybeSingle();
 
       if (error) {
@@ -46,6 +48,8 @@ export default function MyProjectPage() {
           team_members: Array.isArray(data.team_members) ? data.team_members.join(', ') : '',
           screenshot_url: data.screenshot_url || '',
           social_handle: data.social_handle || '',
+          entry_shared: data.entry_shared ?? false,
+          entry_proof_url: data.entry_proof_url || '',
           is_submitted: data.is_submitted,
         });
       }
@@ -87,6 +91,8 @@ export default function MyProjectPage() {
           screenshot_url: data.screenshot_url || null,
           team_members: data.is_solo ? [] : data.team_members.split(',').map((m) => m.trim()),
           is_solo: data.is_solo,
+          entry_shared: data.entry_shared,
+          entry_proof_url: data.entry_proof_url || null,
           social_handle: data.social_handle || null,
           is_submitted: true,
           submitted_at: new Date().toISOString(),
@@ -122,6 +128,8 @@ export default function MyProjectPage() {
           screenshot_url: data.screenshot_url || null,
           team_members: data.is_solo ? [] : data.team_members.split(',').map((m) => m.trim()),
           is_solo: data.is_solo,
+          entry_shared: data.entry_shared,
+          entry_proof_url: data.entry_proof_url || null,
           social_handle: data.social_handle || null,
           updated_at: new Date().toISOString(),
         })

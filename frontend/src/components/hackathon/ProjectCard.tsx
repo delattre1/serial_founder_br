@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink, Loader2 } from 'lucide-react';
-import { VoteButton } from './VoteButton';
 
 export interface Project {
   id: string;
@@ -14,20 +13,15 @@ export interface Project {
   user_id: string;
   username?: string;
   social_handle?: string;
-  vote_count: number;
-  has_voted?: boolean;
   is_solo: boolean;
   team_members?: string;
 }
 
 interface ProjectCardProps {
   project: Project;
-  showVoting?: boolean;
-  onVote?: (projectId: string) => void;
-  onUnvote?: (projectId: string) => void;
 }
 
-export function ProjectCard({ project, showVoting = false, onVote, onUnvote }: ProjectCardProps) {
+export function ProjectCard({ project }: ProjectCardProps) {
   const [showPreview, setShowPreview] = useState(false);
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [iframeError, setIframeError] = useState(false);
@@ -109,22 +103,11 @@ export function ProjectCard({ project, showVoting = false, onVote, onUnvote }: P
         </p>
       </Link>
 
-      {/* Footer with votes and author */}
+      {/* Footer with team + author */}
       <div className="px-6 pb-6 flex items-center justify-between">
-        {showVoting ? (
-          <VoteButton
-            projectId={project.id}
-            voteCount={project.vote_count}
-            hasVoted={project.has_voted || false}
-            onVote={onVote}
-            onUnvote={onUnvote}
-          />
-        ) : (
-          <div className="flex items-center gap-2 text-neutral-500 font-brutal-mono text-sm">
-            <span>▲ {project.vote_count}</span>
-          </div>
-        )}
-
+        <div className="font-brutal-mono text-xs text-lime-400 tracking-widest">
+          {project.is_solo ? 'SOLO' : 'EQUIPE'}
+        </div>
         <div className="font-brutal-mono text-xs text-neutral-600">
           {project.social_handle ? `@${project.social_handle}` : ''}
         </div>
