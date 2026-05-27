@@ -18,13 +18,13 @@ export interface ProjectFormData {
   project_url: string;
   github_url: string;
   how_it_was_built: string;
-  is_solo: boolean;
-  team_members: string;
   screenshot_url: string;
   social_handle: string;
   entry_shared: boolean;
-  entry_proof_url: string;
+  entry_proof_url: string; // Supabase Storage URL of the repost screenshot
 }
+
+const ALLOWED_IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
 
 export function RegistrationForm({
   onSubmit,
@@ -34,6 +34,7 @@ export function RegistrationForm({
 }: RegistrationFormProps) {
   const { user } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const proofInputRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState<ProjectFormData>({
     name: initialData?.name || '',
     short_description: initialData?.short_description || '',
@@ -41,8 +42,6 @@ export function RegistrationForm({
     project_url: initialData?.project_url || '',
     github_url: initialData?.github_url || '',
     how_it_was_built: initialData?.how_it_was_built || '',
-    is_solo: initialData?.is_solo ?? true,
-    team_members: initialData?.team_members || '',
     screenshot_url: initialData?.screenshot_url || '',
     social_handle: initialData?.social_handle || '',
     entry_shared: initialData?.entry_shared ?? false,
@@ -52,38 +51,31 @@ export function RegistrationForm({
   const [charCount, setCharCount] = useState(formData.short_description.length);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [isUploadingProof, setIsUploadingProof] = useState(false);
+  const [proofError, setProofError] = useState<string | null>(null);
   const [entryError, setEntryError] = useState<string | null>(null);
-
-  const isValidUrl = (value: string) => /^https?:\/\/.+/i.test(value.trim());
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-
     // Strip leading @ from social handle
     const cleanValue = name === 'social_handle' ? value.replace(/^@+/, '') : value;
-
     setFormData((prev) => ({ ...prev, [name]: cleanValue }));
-
     if (name === 'short_description') {
       setCharCount(value.length);
     }
-  };
-
-  const handleTeamToggle = (isSolo: boolean) => {
-    setFormData((prev) => ({ ...prev, is_solo: isSolo }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!formData.entry_shared) {
-      setEntryError('Voce precisa repostar o video de anuncio e marcar a caixa para submeter.');
+      setEntryError('Voce precisa repostar o video (marcando @danedelattre) e confirmar a caixa para submeter.');
       return;
     }
-    if (formData.entry_proof_url.trim() && !isValidUrl(formData.entry_proof_url)) {
-      setEntryError('O link do repost precisa ser uma URL valida (https://...).');
+    if (!formData.entry_proof_url) {
+      setEntryError('Envie o print do seu repost para submeter (o premio so e pago apos confirmacao).');
       return;
     }
 
@@ -95,59 +87,68 @@ export function RegistrationForm({
     onSaveDraft(formData);
   };
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Uploads an image to the hackathon-screenshots bucket, returns the public URL.
+  const uploadImage = async (file: File, maxMB: number): Promise<string> => {
+    if (!user) throw new Error('Faca login para enviar a imagem.');
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      throw new Error('Formato invalido. Use PNG, JPG ou WEBP.');
+    }
+    if (file.size > maxMB * 1024 * 1024) {
+      throw new Error(`Imagem muito grande. Maximo ${maxMB}MB.`);
+    }
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${user.id}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${fileExt}`;
+    const { error } = await supabase.storage.from('hackathon-screenshots').upload(fileName, file);
+    if (error) throw error;
+    const { data: { publicUrl } } = supabase.storage.from('hackathon-screenshots').getPublicUrl(fileName);
+    return publicUrl;
+  };
+
+  const handleScreenshotUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file || !user) return;
-
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      setUploadError('Por favor, selecione uma imagem.');
-      return;
-    }
-
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      setUploadError('Imagem muito grande. Máximo 5MB.');
-      return;
-    }
-
+    if (!file) return;
     setIsUploading(true);
     setUploadError(null);
-
     try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${user.id}/${Date.now()}.${fileExt}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from('hackathon-screenshots')
-        .upload(fileName, file);
-
-      if (uploadError) throw uploadError;
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('hackathon-screenshots')
-        .getPublicUrl(fileName);
-
-      setFormData((prev) => ({ ...prev, screenshot_url: publicUrl }));
-    } catch (error) {
-      console.error('Upload error:', error);
-      setUploadError('Erro ao fazer upload. Tente novamente.');
+      const url = await uploadImage(file, 5);
+      setFormData((prev) => ({ ...prev, screenshot_url: url }));
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : 'Erro ao fazer upload. Tente novamente.');
     } finally {
       setIsUploading(false);
     }
   };
 
+  const handleProofUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setIsUploadingProof(true);
+    setProofError(null);
+    setEntryError(null);
+    try {
+      const url = await uploadImage(file, 10);
+      setFormData((prev) => ({ ...prev, entry_proof_url: url }));
+    } catch (err) {
+      setProofError(err instanceof Error ? err.message : 'Erro ao fazer upload. Tente novamente.');
+    } finally {
+      setIsUploadingProof(false);
+    }
+  };
+
   const handleRemoveScreenshot = () => {
     setFormData((prev) => ({ ...prev, screenshot_url: '' }));
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const handleRemoveProof = () => {
+    setFormData((prev) => ({ ...prev, entry_proof_url: '' }));
+    if (proofInputRef.current) proofInputRef.current.value = '';
   };
 
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-8">
       <div className="text-lime-400 text-xs tracking-widest font-brutal-mono mb-4">
-        // PASSO 2 DE 2
+        // INSCRICAO
       </div>
 
       <h2 className="font-brutal-display text-4xl md:text-5xl text-white mb-8">
@@ -260,19 +261,7 @@ Comecei definindo o problema...`}
           style={{ minHeight: '200px' }}
           placeholder={`## O que é o projeto?
 
-Descreva seu projeto aqui...
-
-### Funcionalidades
-
-- **Feature 1**: Descrição da feature
-- **Feature 2**: Outra feature legal
-- **Feature 3**: Mais uma
-
-### Como funciona?
-
-1. Passo um
-2. Passo dois
-3. Passo três`}
+Descreva seu projeto aqui...`}
         />
         <p className="font-brutal-mono text-neutral-600 text-xs mt-2">
           Use ## para títulos grandes, ### para subtítulos, - para listas
@@ -294,47 +283,6 @@ Descreva seu projeto aqui...
         />
       </div>
 
-      {/* Team */}
-      <div>
-        <label className="block font-brutal-mono text-sm text-neutral-400 mb-4">
-          Equipe
-        </label>
-        <div className="flex gap-4 mb-4">
-          <button
-            type="button"
-            onClick={() => handleTeamToggle(true)}
-            className={`px-6 py-3 font-brutal-mono text-sm ${
-              formData.is_solo
-                ? 'bg-lime-400 text-black border-2 border-lime-400'
-                : 'bg-transparent text-neutral-400 border-2 border-neutral-600'
-            }`}
-          >
-            SOLO
-          </button>
-          <button
-            type="button"
-            onClick={() => handleTeamToggle(false)}
-            className={`px-6 py-3 font-brutal-mono text-sm ${
-              !formData.is_solo
-                ? 'bg-lime-400 text-black border-2 border-lime-400'
-                : 'bg-transparent text-neutral-400 border-2 border-neutral-600'
-            }`}
-          >
-            EM EQUIPE
-          </button>
-        </div>
-        {!formData.is_solo && (
-          <input
-            type="text"
-            name="team_members"
-            value={formData.team_members}
-            onChange={handleChange}
-            className="w-full brutal-input"
-            placeholder="Joao, Maria, Pedro"
-          />
-        )}
-      </div>
-
       {/* Screenshot Upload */}
       <div>
         <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
@@ -343,11 +291,7 @@ Descreva seu projeto aqui...
         <div className="brutal-border bg-black p-6">
           {formData.screenshot_url ? (
             <div className="relative">
-              <img
-                src={formData.screenshot_url}
-                alt="Screenshot preview"
-                className="w-full aspect-video object-cover"
-              />
+              <img src={formData.screenshot_url} alt="Screenshot preview" className="w-full aspect-video object-cover" />
               <button
                 type="button"
                 onClick={handleRemoveScreenshot}
@@ -369,55 +313,25 @@ Descreva seu projeto aqui...
               <p className="font-brutal-mono text-neutral-500 text-sm">
                 {isUploading ? 'ENVIANDO...' : '[CLIQUE PARA UPLOAD]'}
               </p>
-              <p className="font-brutal-mono text-neutral-600 text-xs mt-2">
-                PNG, JPG ou GIF - Max 5MB
-              </p>
+              <p className="font-brutal-mono text-neutral-600 text-xs mt-2">PNG, JPG ou WEBP - Max 5MB</p>
             </div>
           )}
-
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            onChange={handleFileUpload}
-            className="hidden"
-          />
-
-          {uploadError && (
-            <p className="font-brutal-mono text-red-500 text-sm mt-4 text-center">
-              {uploadError}
-            </p>
-          )}
-
-          <div className="mt-4 pt-4 border-t border-neutral-800">
-            <p className="font-brutal-mono text-neutral-600 text-xs mb-2 text-center">
-              Ou cole uma URL direta:
-            </p>
-            <input
-              type="url"
-              name="screenshot_url"
-              value={formData.screenshot_url}
-              onChange={handleChange}
-              className="w-full brutal-input"
-              placeholder="https://... (URL da imagem)"
-            />
-          </div>
+          <input ref={fileInputRef} type="file" accept="image/png,image/jpeg,image/webp" onChange={handleScreenshotUpload} className="hidden" />
+          {uploadError && <p className="font-brutal-mono text-red-500 text-sm mt-4 text-center">{uploadError}</p>}
         </div>
       </div>
 
-      {/* Entry = repost the announcement video */}
+      {/* Entry = repost the announcement video (with screenshot proof) */}
       <div className="brutal-border-lime bg-black p-6">
         <div className="flex items-start gap-3 mb-4">
           <Share2 className="w-6 h-6 text-lime-400 flex-shrink-0" />
           <div>
             <h3 className="font-brutal-display text-xl text-white">{CURRENT.entry.headline}</h3>
-            <p className="font-brutal-mono text-xs text-neutral-400 mt-1">
-              {CURRENT.entry.description}
-            </p>
+            <p className="font-brutal-mono text-xs text-neutral-400 mt-1">{CURRENT.entry.description}</p>
           </div>
         </div>
 
-        <label className="flex items-start gap-3 cursor-pointer">
+        <label className="flex items-start gap-3 cursor-pointer mb-4">
           <input
             type="checkbox"
             name="entry_shared"
@@ -428,31 +342,47 @@ Descreva seu projeto aqui...
             }}
             className="mt-1 w-5 h-5 accent-lime-400 flex-shrink-0"
           />
-          <span className="font-brutal-mono text-sm text-neutral-200">
-            {CURRENT.entry.checkboxLabel} *
-          </span>
+          <span className="font-brutal-mono text-sm text-neutral-200">{CURRENT.entry.checkboxLabel} *</span>
         </label>
 
-        <div className="mt-4">
-          <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
-            {CURRENT.entry.proofLabel}
-          </label>
-          <input
-            type="url"
-            name="entry_proof_url"
-            value={formData.entry_proof_url}
-            onChange={handleChange}
-            className="w-full brutal-input"
-            placeholder="https://instagram.com/..."
-          />
-          <p className="font-brutal-mono text-neutral-600 text-xs mt-2">
-            {CURRENT.entry.proofHint}
-          </p>
+        {/* Repost screenshot proof upload */}
+        <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
+          {CURRENT.entry.proofLabel}
+        </label>
+        <div className="border-2 border-neutral-700 bg-black p-4">
+          {formData.entry_proof_url ? (
+            <div className="relative">
+              <img src={formData.entry_proof_url} alt="Print do repost" className="w-full max-h-72 object-contain" />
+              <button
+                type="button"
+                onClick={handleRemoveProof}
+                className="absolute top-2 right-2 bg-red-500 text-white p-2 hover:bg-red-600 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          ) : (
+            <div
+              onClick={() => proofInputRef.current?.click()}
+              className="cursor-pointer p-6 text-center hover:bg-neutral-900 transition-colors"
+            >
+              {isUploadingProof ? (
+                <Loader2 className="w-8 h-8 text-lime-400 mx-auto mb-3 animate-spin" />
+              ) : (
+                <Upload className="w-8 h-8 text-neutral-600 mx-auto mb-3" />
+              )}
+              <p className="font-brutal-mono text-neutral-500 text-sm">
+                {isUploadingProof ? 'ENVIANDO...' : '[ENVIAR PRINT DO REPOST]'}
+              </p>
+              <p className="font-brutal-mono text-neutral-600 text-xs mt-2">PNG, JPG ou WEBP - Max 10MB</p>
+            </div>
+          )}
+          <input ref={proofInputRef} type="file" accept="image/png,image/jpeg,image/webp" onChange={handleProofUpload} className="hidden" />
+          {proofError && <p className="font-brutal-mono text-red-500 text-sm mt-3 text-center">{proofError}</p>}
         </div>
+        <p className="font-brutal-mono text-neutral-600 text-xs mt-2">{CURRENT.entry.proofHint}</p>
 
-        {entryError && (
-          <p className="font-brutal-mono text-red-500 text-sm mt-4">{entryError}</p>
-        )}
+        {entryError && <p className="font-brutal-mono text-red-500 text-sm mt-4">{entryError}</p>}
       </div>
 
       {/* Action buttons */}

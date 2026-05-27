@@ -57,26 +57,27 @@ export const ROUNDS: Record<number, RoundConfig> = {
     tagline1: 'DA SEED',
     tagline2: 'AO DEPLOY',
     marquee:
-      '/// HACKATHON RELAMPAGO /// SEED EDITION /// 26-30 MAI /// SHIP OR DIE ///',
+      '/// HACKATHON RELAMPAGO /// SEED EDITION /// 28-30 MAI /// SHIP OR DIE ///',
     status: 'open',
     dates: {
-      startLabel: '26/05',
+      startLabel: '28/05 15:30',
       endLabel: '30/05 23:59',
       subinfo: [
-        '// INICIO: 26/05 (segunda)',
-        '// ENTREGA ATE: 30/05 23:59 (sabado)',
-        '// VENCEDORES: 31/05 (domingo) — escolhidos pelo Daniel',
+        '// INSCRICOES ATE: 28/05 23:30 BRT (quinta)',
+        '// INICIO: 28/05 15:30 BRT (quinta)',
+        '// SUBMISSAO ATE: 30/05 23:59 BRT (sabado)',
+        '// VENCEDORES (live): 31/05 18:30 BRT (domingo) — Top 3 fazem pitch',
       ],
     },
     voting: { enabled: false },
     entry: {
       headline: 'INSCRICAO = COMPARTILHAR O VIDEO',
       description:
-        'Sem taxa. Reposte o video de anuncio do hackathon no seu Instagram (ou Twitter) e marque a caixa abaixo. Esse repost e a sua inscricao.',
-      checkboxLabel: 'Repostei o video de anuncio no Instagram',
-      proofLabel: 'Link do repost (opcional)',
+        'Sem taxa. Reposte o video de anuncio do hackathon no seu Instagram marcando @danedelattre. Esse repost e a sua inscricao.',
+      checkboxLabel: 'Repostei o video de anuncio no Instagram e marquei @danedelattre',
+      proofLabel: 'Print do seu repost (deve aparecer @danedelattre marcado) *',
       proofHint:
-        'Cole o link do seu story/post. O premio so e pago apos o Daniel confirmar o repost.',
+        'Envie o print do seu story/post mostrando a marcacao. O premio so e pago apos o Daniel confirmar o repost.',
     },
     prizesNote: 'Premiacao bancada pelo Daniel (paga em dolar). Top 3 levam:',
     prizes: [
@@ -95,7 +96,7 @@ export const ROUNDS: Record<number, RoundConfig> = {
         'IA (Claude, Cursor, etc.)',
         'Templates, libs, OSS',
         'Infra existente',
-        'Solo ou equipe',
+        'Participacao individual (solo)',
         'Ajuda de qualquer pessoa (ate a avo)',
       ],
       notAllowed: ['Codigo proprio antigo', 'Produto ja existente'],
@@ -106,42 +107,3 @@ export const ROUNDS: Record<number, RoundConfig> = {
 };
 
 export const CURRENT: RoundConfig = ROUNDS[CURRENT_ROUND];
-
-// =============================================================================
-// Round 1 archive — kept as STATIC cards. The original DB project was paused
-// and its data is gone, so these are hardcoded.
-// TODO(ceo): confirm names + provide real project URLs / screenshots / handles.
-// =============================================================================
-export interface StaticWinner {
-  place: 1 | 2 | 3;
-  name: string;
-  handle?: string;
-  description?: string;
-  projectUrl?: string;
-  githubUrl?: string;
-  screenshotUrl?: string;
-}
-
-export const ROUND1_ARCHIVE = {
-  edition: '1º',
-  name: 'HACKATHON RELAMPAGO',
-  subtitle: 'DO ZERO AO DEPLOY',
-  dateLabel: 'DEZ 2025',
-  winners: [
-    {
-      place: 1,
-      name: 'Projeto do Dixon',
-      description: 'Vencedor da 1ª edicao do Hackathon Relampago.',
-    },
-    {
-      place: 2,
-      name: 'StackBuilder',
-      description: '2º lugar da 1ª edicao do Hackathon Relampago.',
-    },
-    {
-      place: 3,
-      name: 'Zynance',
-      description: '3º lugar da 1ª edicao do Hackathon Relampago.',
-    },
-  ] as StaticWinner[],
-};

@@ -59,8 +59,6 @@ export default function ProjectDetailPage() {
           user_id: data.user_id,
           username: '',
           social_handle: data.social_handle || '',
-          is_solo: data.is_solo,
-          team_members: Array.isArray(data.team_members) ? data.team_members.join(', ') : '',
         });
       }
 
@@ -129,15 +127,11 @@ export default function ProjectDetailPage() {
             <h1 className="font-brutal-display text-5xl md:text-6xl text-white mb-4">
               {project.name.toUpperCase()}
             </h1>
-            <div className="flex flex-wrap items-center gap-4 text-neutral-500 font-brutal-mono text-sm">
-              {project.social_handle && (
-                <>
-                  <span>por @{project.social_handle}</span>
-                  <span className="text-neutral-700">•</span>
-                </>
-              )}
-              <span>{project.is_solo ? 'Solo' : `Equipe: ${project.team_members}`}</span>
-            </div>
+            {project.social_handle && (
+              <div className="flex flex-wrap items-center gap-4 text-neutral-500 font-brutal-mono text-sm">
+                <span>por @{project.social_handle}</span>
+              </div>
+            )}
           </div>
 
           {/* Preview area */}

@@ -44,8 +44,6 @@ export default function MyProjectPage() {
           how_it_was_built: data.how_it_was_built || '',
           project_url: data.project_url,
           github_url: data.github_url || '',
-          is_solo: data.is_solo,
-          team_members: Array.isArray(data.team_members) ? data.team_members.join(', ') : '',
           screenshot_url: data.screenshot_url || '',
           social_handle: data.social_handle || '',
           entry_shared: data.entry_shared ?? false,
@@ -89,8 +87,6 @@ export default function MyProjectPage() {
           project_url: data.project_url,
           github_url: data.github_url || null,
           screenshot_url: data.screenshot_url || null,
-          team_members: data.is_solo ? [] : data.team_members.split(',').map((m) => m.trim()),
-          is_solo: data.is_solo,
           entry_shared: data.entry_shared,
           entry_proof_url: data.entry_proof_url || null,
           social_handle: data.social_handle || null,
@@ -126,8 +122,6 @@ export default function MyProjectPage() {
           project_url: data.project_url,
           github_url: data.github_url || null,
           screenshot_url: data.screenshot_url || null,
-          team_members: data.is_solo ? [] : data.team_members.split(',').map((m) => m.trim()),
-          is_solo: data.is_solo,
           entry_shared: data.entry_shared,
           entry_proof_url: data.entry_proof_url || null,
           social_handle: data.social_handle || null,
@@ -271,14 +265,6 @@ export default function MyProjectPage() {
                         </a>
                       </div>
                     )}
-                  </div>
-                </div>
-
-                {/* Team */}
-                <div className="brutal-border bg-black p-6">
-                  <h3 className="font-brutal-display text-lg text-lime-400 mb-4">EQUIPE</h3>
-                  <div className="font-brutal-mono text-sm text-neutral-300">
-                    {project?.is_solo ? 'Solo' : project?.team_members || 'Não especificado'}
                   </div>
                 </div>
 
