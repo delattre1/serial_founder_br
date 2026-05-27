@@ -34,8 +34,6 @@ export default function HackathonPage() {
             user_id: p.user_id,
             username: '',
             social_handle: p.social_handle || '',
-            is_solo: p.is_solo,
-            team_members: Array.isArray(p.team_members) ? p.team_members.join(', ') : undefined,
           }))
         );
       }

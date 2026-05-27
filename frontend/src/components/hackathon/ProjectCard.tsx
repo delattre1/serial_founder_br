@@ -13,8 +13,6 @@ export interface Project {
   user_id: string;
   username?: string;
   social_handle?: string;
-  is_solo: boolean;
-  team_members?: string;
 }
 
 interface ProjectCardProps {
@@ -103,11 +101,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </p>
       </Link>
 
-      {/* Footer with team + author */}
-      <div className="px-6 pb-6 flex items-center justify-between">
-        <div className="font-brutal-mono text-xs text-lime-400 tracking-widest">
-          {project.is_solo ? 'SOLO' : 'EQUIPE'}
-        </div>
+      {/* Footer with author */}
+      <div className="px-6 pb-6 flex items-center justify-end">
         <div className="font-brutal-mono text-xs text-neutral-600">
           {project.social_handle ? `@${project.social_handle}` : ''}
         </div>
