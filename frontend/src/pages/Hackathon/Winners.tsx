@@ -1,89 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink, Github, Loader2, Trophy, Medal, Award, Crown, Sparkles } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
-
-interface WinnerProject {
-  id: string;
-  name: string;
-  slug: string;
-  short_description: string;
-  project_url: string;
-  screenshot_url: string;
-  social_handle: string;
-  github_url?: string;
-  vote_count: number;
-  is_solo: boolean;
-  team_members?: string;
-}
-
-const WINNER_SLUGS = [
-  'projeto-do-dixon-ainda-definindo-mj5qqw9g',
-  'stackbuilder-mj4fdp0a',
-  'zynance-mj3v6m4z',
-];
+import { ExternalLink, Github, Trophy, Medal, Award, Crown, Sparkles } from 'lucide-react';
+import { ROUND1_ARCHIVE, StaticWinner } from '@/config/hackathon';
 
 export default function WinnersPage() {
-  const [winners, setWinners] = useState<(WinnerProject | null)[]>([null, null, null]);
-  const [loading, setLoading] = useState(true);
   const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
-    async function fetchWinners() {
-      const winnersData: (WinnerProject | null)[] = [];
-
-      for (const slug of WINNER_SLUGS) {
-        const { data, error } = await supabase
-          .from('hackathon_projects')
-          .select('*')
-          .eq('slug', slug)
-          .maybeSingle();
-
-        if (error || !data) {
-          winnersData.push(null);
-          continue;
-        }
-
-        // Get vote count
-        const { count } = await supabase
-          .from('hackathon_votes')
-          .select('*', { count: 'exact', head: true })
-          .eq('project_id', data.id);
-
-        winnersData.push({
-          id: data.id,
-          name: data.name,
-          slug: data.slug,
-          short_description: data.short_description,
-          project_url: data.project_url,
-          screenshot_url: data.screenshot_url || '',
-          social_handle: data.social_handle || '',
-          github_url: data.github_url || '',
-          vote_count: count || 0,
-          is_solo: data.is_solo,
-          team_members: Array.isArray(data.team_members) ? data.team_members.join(', ') : '',
-        });
-      }
-
-      setWinners(winnersData);
-      setLoading(false);
-
-      // Trigger confetti after load
-      setTimeout(() => setShowConfetti(true), 500);
-    }
-
-    fetchWinners();
+    const t = setTimeout(() => setShowConfetti(true), 500);
+    return () => clearTimeout(t);
   }, []);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <Loader2 className="w-12 h-12 text-lime-400 animate-spin" />
-      </div>
-    );
-  }
-
-  const [first, second, third] = winners;
+  const byPlace = (p: number) => ROUND1_ARCHIVE.winners.find((w) => w.place === p);
+  const first = byPlace(1);
+  const second = byPlace(2);
+  const third = byPlace(3);
 
   return (
     <div className="min-h-screen bg-black text-white font-brutal-mono relative overflow-hidden">
@@ -119,7 +50,7 @@ export default function WinnersPage() {
             to="/hackathon"
             className="border-2 border-neutral-600 px-4 py-2 text-sm hover:border-lime-400 hover:text-lime-400 transition-colors"
           >
-            [VER TODOS PROJETOS]
+            [VER HACKATHON ATUAL]
           </Link>
         </div>
       </header>
@@ -129,7 +60,7 @@ export default function WinnersPage() {
         <div className="inline-flex items-center gap-2 mb-6">
           <Sparkles className="w-6 h-6 text-yellow-400 animate-pulse" />
           <span className="font-brutal-mono text-yellow-400 text-sm tracking-widest">
-            HACKATHON SERIAL FOUNDERS 2025
+            {ROUND1_ARCHIVE.edition} {ROUND1_ARCHIVE.name} // {ROUND1_ARCHIVE.dateLabel}
           </span>
           <Sparkles className="w-6 h-6 text-yellow-400 animate-pulse" />
         </div>
@@ -143,7 +74,7 @@ export default function WinnersPage() {
 
         <div className="flex items-center justify-center gap-4 text-neutral-500 font-brutal-mono text-xs">
           <Crown className="w-5 h-5 text-yellow-400" />
-          <span>OS PROJETOS MAIS VOTADOS DA COMUNIDADE</span>
+          <span>SELECIONADOS PELA CURADORIA · {ROUND1_ARCHIVE.subtitle}</span>
           <Crown className="w-5 h-5 text-yellow-400" />
         </div>
       </section>
@@ -153,33 +84,28 @@ export default function WinnersPage() {
         <div className="max-w-6xl mx-auto">
           {/* Desktop Podium Layout */}
           <div className="hidden md:grid md:grid-cols-3 gap-8 items-end">
-            {/* Second Place - Left */}
             {second && (
               <div className="order-1 animate-slide-up" style={{ animationDelay: '0.3s' }}>
-                <WinnerCard project={second} place={2} />
+                <WinnerCard winner={second} />
               </div>
             )}
-
-            {/* First Place - Center (Taller) */}
             {first && (
               <div className="order-2 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-                <WinnerCard project={first} place={1} />
+                <WinnerCard winner={first} />
               </div>
             )}
-
-            {/* Third Place - Right */}
             {third && (
               <div className="order-3 animate-slide-up" style={{ animationDelay: '0.5s' }}>
-                <WinnerCard project={third} place={3} />
+                <WinnerCard winner={third} />
               </div>
             )}
           </div>
 
           {/* Mobile Layout - Stacked */}
           <div className="md:hidden space-y-8">
-            {first && <WinnerCard project={first} place={1} />}
-            {second && <WinnerCard project={second} place={2} />}
-            {third && <WinnerCard project={third} place={3} />}
+            {first && <WinnerCard winner={first} />}
+            {second && <WinnerCard winner={second} />}
+            {third && <WinnerCard winner={third} />}
           </div>
         </div>
       </section>
@@ -190,17 +116,16 @@ export default function WinnersPage() {
           <div className="brutal-border-lime bg-black/80 p-8">
             <Trophy className="w-12 h-12 text-lime-400 mx-auto mb-4" />
             <h3 className="font-brutal-display text-2xl text-white mb-4">
-              PARABENS A TODOS OS PARTICIPANTES!
+              A 2ª EDICAO JA COMECOU!
             </h3>
             <p className="font-brutal-mono text-neutral-400 text-sm mb-6">
-              Cada projeto representa horas de dedicacao e criatividade.
-              Obrigado por fazer parte do Hackathon Serial Founders!
+              SEED EDITION. Do zero ao deploy. Inscreva-se e mostre o que voce constroi.
             </p>
             <Link
               to="/hackathon"
               className="inline-block bg-lime-400 text-black brutal-border-inverse px-8 py-4 font-brutal-mono hover-shift-dark"
             >
-              VER TODOS OS PROJETOS
+              PARTICIPAR AGORA
             </Link>
           </div>
         </div>
@@ -210,7 +135,7 @@ export default function WinnersPage() {
       <footer className="border-t-2 border-neutral-800 p-6 relative z-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="font-brutal-mono text-xs text-neutral-600">
-            // SERIAL_FOUNDERS_BR © 2025
+            // SERIAL_FOUNDERS_BR © 2026
           </div>
           <div className="flex items-center gap-6">
             <a
@@ -244,49 +169,19 @@ export default function WinnersPage() {
   );
 }
 
-function WinnerCard({ project, place }: { project: WinnerProject; place: 1 | 2 | 3 }) {
+function WinnerCard({ winner }: { winner: StaticWinner }) {
   const placeConfig = {
-    1: {
-      icon: Trophy,
-      color: 'text-yellow-400',
-      bgColor: 'bg-yellow-400',
-      borderColor: 'border-yellow-400',
-      shadowColor: 'rgba(250, 204, 21, 0.5)',
-      label: '1º LUGAR',
-      size: 'scale-105',
-      iconSize: 'w-10 h-10',
-    },
-    2: {
-      icon: Medal,
-      color: 'text-neutral-300',
-      bgColor: 'bg-neutral-300',
-      borderColor: 'border-neutral-300',
-      shadowColor: 'rgba(212, 212, 212, 0.5)',
-      label: '2º LUGAR',
-      size: 'scale-100',
-      iconSize: 'w-8 h-8',
-    },
-    3: {
-      icon: Award,
-      color: 'text-orange-400',
-      bgColor: 'bg-orange-400',
-      borderColor: 'border-orange-400',
-      shadowColor: 'rgba(251, 146, 60, 0.5)',
-      label: '3º LUGAR',
-      size: 'scale-100',
-      iconSize: 'w-8 h-8',
-    },
-  };
+    1: { icon: Trophy, color: 'text-yellow-400', bgColor: 'bg-yellow-400', borderColor: 'border-yellow-400', shadowColor: 'rgba(250, 204, 21, 0.5)', label: '1º LUGAR', size: 'scale-105' },
+    2: { icon: Medal, color: 'text-neutral-300', bgColor: 'bg-neutral-300', borderColor: 'border-neutral-300', shadowColor: 'rgba(212, 212, 212, 0.5)', label: '2º LUGAR', size: 'scale-100' },
+    3: { icon: Award, color: 'text-orange-400', bgColor: 'bg-orange-400', borderColor: 'border-orange-400', shadowColor: 'rgba(251, 146, 60, 0.5)', label: '3º LUGAR', size: 'scale-100' },
+  } as const;
 
-  const config = placeConfig[place];
+  const config = placeConfig[winner.place];
   const Icon = config.icon;
-
-  const placeholderScreenshot = `https://placehold.co/600x400/000000/a3e635?text=${encodeURIComponent(project.name)}`;
+  const placeholderScreenshot = `https://placehold.co/600x400/000000/a3e635?text=${encodeURIComponent(winner.name)}`;
 
   return (
-    <div
-      className={`relative ${config.size} transition-transform duration-500`}
-    >
+    <div className={`relative ${config.size} transition-transform duration-500`}>
       {/* Place Badge */}
       <div className={`absolute -top-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 ${config.bgColor} text-black px-4 py-2 font-brutal-mono text-sm`}>
         <Icon className="w-5 h-5" />
@@ -294,71 +189,58 @@ function WinnerCard({ project, place }: { project: WinnerProject; place: 1 | 2 |
       </div>
 
       {/* Card */}
-      <div
-        className={`bg-black border-3 ${config.borderColor} pt-8`}
-        style={{ boxShadow: `8px 8px 0 0 ${config.shadowColor}` }}
-      >
+      <div className={`bg-black border-3 ${config.borderColor} pt-8`} style={{ boxShadow: `8px 8px 0 0 ${config.shadowColor}` }}>
         {/* Screenshot */}
         <div className="aspect-video overflow-hidden bg-neutral-900 mx-4 mb-4">
           <img
-            src={project.screenshot_url || placeholderScreenshot}
-            alt={project.name}
-            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+            src={winner.screenshotUrl || placeholderScreenshot}
+            alt={winner.name}
+            className="w-full h-full object-cover"
           />
         </div>
 
         {/* Content */}
         <div className="px-4 pb-4">
           <h3 className="font-brutal-display text-2xl text-white mb-2 truncate">
-            {project.name.toUpperCase()}
+            {winner.name.toUpperCase()}
           </h3>
 
-          {project.social_handle && (
-            <p className={`font-brutal-mono text-xs ${config.color} mb-3`}>
-              @{project.social_handle}
+          {winner.handle && (
+            <p className={`font-brutal-mono text-xs ${config.color} mb-3`}>@{winner.handle}</p>
+          )}
+
+          {winner.description && (
+            <p className="font-brutal-mono text-sm text-neutral-400 mb-4 line-clamp-2">
+              {winner.description}
             </p>
           )}
 
-          <p className="font-brutal-mono text-sm text-neutral-400 mb-4 line-clamp-2">
-            {project.short_description}
-          </p>
-
-          {/* Vote Count */}
-          <div className={`flex items-center gap-2 mb-4 ${config.color}`}>
-            <span className="font-brutal-display text-3xl">{project.vote_count}</span>
-            <span className="font-brutal-mono text-xs">VOTOS</span>
-          </div>
-
-          {/* Actions */}
-          <div className="flex gap-2">
-            <a
-              href={project.project_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`flex-1 ${config.bgColor} text-black py-2 px-3 font-brutal-mono text-xs flex items-center justify-center gap-2 hover:opacity-90 transition-opacity`}
-            >
-              <ExternalLink className="w-4 h-4" />
-              VER PROJETO
-            </a>
-            {project.github_url && (
-              <a
-                href={project.github_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`border-2 ${config.borderColor} ${config.color} py-2 px-3 font-brutal-mono text-xs flex items-center justify-center hover:bg-white/5 transition-colors`}
-              >
-                <Github className="w-4 h-4" />
-              </a>
-            )}
-          </div>
-
-          {/* Link to full project page */}
-          <Link
-            to={`/hackathon/project/${project.slug}`}
-            className="block mt-3 text-center font-brutal-mono text-xs text-neutral-500 hover:text-lime-400 transition-colors"
-          >
-            [VER DETALHES COMPLETOS]
-          </Link>
+          {/* Actions (only render links that exist) */}
+          {(winner.projectUrl || winner.githubUrl) && (
+            <div className="flex gap-2">
+              {winner.projectUrl && (
+                <a
+                  href={winner.projectUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex-1 ${config.bgColor} text-black py-2 px-3 font-brutal-mono text-xs flex items-center justify-center gap-2 hover:opacity-90 transition-opacity`}
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  VER PROJETO
+                </a>
+              )}
+              {winner.githubUrl && (
+                <a
+                  href={winner.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`border-2 ${config.borderColor} ${config.color} py-2 px-3 font-brutal-mono text-xs flex items-center justify-center hover:bg-white/5 transition-colors`}
+                >
+                  <Github className="w-4 h-4" />
+                </a>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

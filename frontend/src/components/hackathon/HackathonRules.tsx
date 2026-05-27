@@ -1,34 +1,8 @@
-import { Check, X } from 'lucide-react';
+import { Check, X, Share2 } from 'lucide-react';
+import { CURRENT } from '@/config/hackathon';
 
 export function HackathonRules() {
-  const rules = [
-    'Projeto novo (do zero)',
-    'Tema livre',
-    'Deploy publico obrigatorio',
-    'Landing + Cadastro + Produto funcional',
-  ];
-
-  const podePerguntas = [
-    { pergunta: 'Pode pedir ajuda pra avo?', resposta: 'PODE!' },
-    { pergunta: 'Pode pedir ajuda pro cachorro?', resposta: 'PODE!' },
-    { pergunta: 'Pode usar IA?', resposta: 'PODE!' },
-    { pergunta: 'Pode usar template pronto?', resposta: 'PODE!' },
-    { pergunta: 'Pode escolher qualquer tema?', resposta: 'PODE!' },
-    { pergunta: 'Pode fazer sozinho ou em equipe?', resposta: 'PODE!' },
-  ];
-
-  const allowed = [
-    'IA (Claude, Cursor, etc.)',
-    'Templates, libs, OSS',
-    'Infra existente',
-    'Solo ou equipe',
-    'Ajuda de qualquer pessoa (ate a avo)',
-  ];
-
-  const notAllowed = [
-    'Codigo proprio antigo',
-    'Produto ja existente',
-  ];
+  const { rules, entry, prizes, prizesNote } = CURRENT;
 
   return (
     <section id="regras" className="py-16 px-4 border-t-2 border-neutral-800">
@@ -37,7 +11,7 @@ export function HackathonRules() {
         <div className="mb-12">
           <h2 className="font-brutal-display text-4xl md:text-5xl text-white mb-8">REGRAS</h2>
           <div className="grid gap-3">
-            {rules.map((rule, index) => (
+            {rules.summary.map((rule, index) => (
               <div
                 key={index}
                 className="flex items-center gap-3 font-brutal-mono text-neutral-400"
@@ -47,6 +21,27 @@ export function HackathonRules() {
               </div>
             ))}
           </div>
+
+          {rules.docPending && (
+            <div className="mt-6 border-2 border-neutral-800 bg-black p-4">
+              <div className="font-brutal-mono text-sm text-lime-400">
+                // DOCUMENTACAO COMPLETA DAS REGRAS SEED EM BREVE
+              </div>
+              <p className="font-brutal-mono text-xs text-neutral-500 mt-1">
+                O Daniel vai publicar e compartilhar a especificacao completa do desafio.
+              </p>
+              {rules.docUrl && (
+                <a
+                  href={rules.docUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block mt-2 font-brutal-mono text-xs text-lime-400 hover:underline"
+                >
+                  [VER DOCUMENTACAO]
+                </a>
+              )}
+            </div>
+          )}
         </div>
 
         {/* What's allowed / not allowed */}
@@ -55,7 +50,7 @@ export function HackathonRules() {
           <div className="brutal-border bg-black p-8">
             <h3 className="font-brutal-display text-2xl text-lime-400 mb-6">O QUE PODE?</h3>
             <div className="space-y-3">
-              {allowed.map((item, index) => (
+              {rules.allowed.map((item, index) => (
                 <div
                   key={index}
                   className="flex items-center gap-3 font-brutal-mono text-neutral-300"
@@ -71,7 +66,7 @@ export function HackathonRules() {
           <div className="border-3 border-red-500 bg-black p-8" style={{ border: '3px solid #ef4444' }}>
             <h3 className="font-brutal-display text-2xl text-red-500 mb-6">O QUE NAO PODE?</h3>
             <div className="space-y-3">
-              {notAllowed.map((item, index) => (
+              {rules.notAllowed.map((item, index) => (
                 <div
                   key={index}
                   className="flex items-center gap-3 font-brutal-mono text-neutral-300"
@@ -84,38 +79,35 @@ export function HackathonRules() {
           </div>
         </div>
 
-        {/* PODE? PODE! Section */}
+        {/* Entry = share the video */}
         <div className="mt-12 bg-lime-400 text-black p-8" style={{ border: '3px solid black', boxShadow: '6px 6px 0 0 rgba(0, 0, 0, 1)' }}>
-          <h3 className="font-brutal-display text-3xl mb-6">PODE? PODE!</h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {podePerguntas.map((item, index) => (
-              <div key={index} className="flex items-center gap-3">
-                <span className="font-brutal-mono text-sm text-black/70">{item.pergunta}</span>
-                <span className="font-brutal-display text-lg">{item.resposta}</span>
-              </div>
-            ))}
+          <div className="flex items-start gap-4">
+            <Share2 className="w-8 h-8 flex-shrink-0" />
+            <div>
+              <h3 className="font-brutal-display text-3xl mb-3">{entry.headline}</h3>
+              <p className="font-brutal-mono text-sm text-black/80">{entry.description}</p>
+            </div>
           </div>
         </div>
 
         {/* Prize info */}
         <div className="mt-12 brutal-border-lime p-8">
           <h3 className="font-brutal-display text-2xl text-white mb-4">PREMIACAO</h3>
-          <p className="font-brutal-mono text-neutral-400 mb-4">
-            Participacao opcional de R$20 vai para o premio dos Top 3.
-          </p>
+          <p className="font-brutal-mono text-neutral-400 mb-6">{prizesNote}</p>
           <div className="grid grid-cols-3 gap-4 text-center">
-            <div>
-              <div className="font-brutal-display text-3xl text-lime-400">1º</div>
-              <div className="font-brutal-mono text-xs text-neutral-500">50%</div>
-            </div>
-            <div>
-              <div className="font-brutal-display text-3xl text-neutral-400">2º</div>
-              <div className="font-brutal-mono text-xs text-neutral-500">30%</div>
-            </div>
-            <div>
-              <div className="font-brutal-display text-3xl text-neutral-600">3º</div>
-              <div className="font-brutal-mono text-xs text-neutral-500">20%</div>
-            </div>
+            {prizes.map((p) => (
+              <div key={p.place}>
+                <div
+                  className={`font-brutal-display text-3xl ${
+                    p.place === 1 ? 'text-lime-400' : p.place === 2 ? 'text-neutral-300' : 'text-neutral-500'
+                  }`}
+                >
+                  {p.place}º
+                </div>
+                <div className="font-brutal-mono text-lg text-white mt-1">${p.usd}</div>
+                <div className="font-brutal-mono text-xs text-neutral-500">~R${p.brl}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

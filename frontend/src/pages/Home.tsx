@@ -2,6 +2,7 @@ import { supabase } from "@/lib/supabase";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect, useState } from "react";
+import { CURRENT } from "@/config/hackathon";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -183,24 +184,24 @@ export default function Home() {
           </div>
         </header>
 
-        {/* Hackathon Winners Banner */}
-        <Link to="/hackathon/winners" className="block border-y-2 border-yellow-400 bg-yellow-400/10 hover:bg-yellow-400/20 transition-colors">
+        {/* Hackathon — round open banner */}
+        <Link to="/hackathon" className="block border-y-2 border-lime-400 bg-lime-400/10 hover:bg-lime-400/20 transition-colors">
           <div className="container mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="text-yellow-400 text-xs tracking-widest font-brutal-mono">
-                /// FINALIZADO ///
+              <div className="text-lime-400 text-xs tracking-widest font-brutal-mono">
+                /// INSCRICOES ABERTAS ///
               </div>
               <div className="hidden md:block text-neutral-600">|</div>
               <h3 className="font-brutal-display text-xl md:text-2xl">
-                1º HACKATON <span className="text-yellow-400">RELAMPAGO</span>
+                {CURRENT.edition} HACKATHON <span className="text-lime-400">RELAMPAGO</span> · {CURRENT.theme}
               </h3>
             </div>
             <div className="flex items-center gap-4">
               <span className="font-brutal-mono text-neutral-400 text-sm">
-                CONFIRA OS TOP 3 PROJETOS
+                ENTREGA ATE {CURRENT.dates.endLabel}
               </span>
-              <span className="bg-yellow-400 text-black px-4 py-2 font-brutal-display text-sm">
-                VER VENCEDORES →
+              <span className="bg-lime-400 text-black px-4 py-2 font-brutal-display text-sm">
+                PARTICIPAR →
               </span>
             </div>
           </div>

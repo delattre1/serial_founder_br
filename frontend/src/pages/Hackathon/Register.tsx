@@ -3,9 +3,8 @@ import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
-import { PaymentChoice, RegistrationForm, ProjectFormData } from '@/components/hackathon';
-
-type Step = 'payment' | 'form';
+import { RegistrationForm, ProjectFormData } from '@/components/hackathon';
+import { CURRENT_ROUND } from '@/config/hackathon';
 
 function generateSlug(name: string): string {
   return name
@@ -19,12 +18,10 @@ function generateSlug(name: string): string {
 export default function RegisterPage() {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
-  const [step, setStep] = useState<Step>('payment');
-  const [wantsToPay, setWantsToPay] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [checkingProject, setCheckingProject] = useState(true);
 
-  // Check if user already has a project
+  // Check if user already has a project for the current round
   useEffect(() => {
     async function checkExistingProject() {
       if (!user) return;
@@ -33,6 +30,7 @@ export default function RegisterPage() {
         .from('hackathon_projects')
         .select('id')
         .eq('user_id', user.id)
+        .eq('round', CURRENT_ROUND)
         .maybeSingle();
 
       if (existingProject) {
@@ -63,11 +61,6 @@ export default function RegisterPage() {
     );
   }
 
-  const handlePaymentChoice = (payOption: boolean) => {
-    setWantsToPay(payOption);
-    setStep('form');
-  };
-
   const saveProject = async (data: ProjectFormData, isSubmitted: boolean) => {
     if (!user) return null;
 
@@ -85,7 +78,9 @@ export default function RegisterPage() {
       screenshot_url: data.screenshot_url || null,
       team_members: data.is_solo ? [] : data.team_members.split(',').map((m) => m.trim()),
       is_solo: data.is_solo,
-      paid_entry: wantsToPay,
+      round: CURRENT_ROUND,
+      entry_shared: data.entry_shared,
+      entry_proof_url: data.entry_proof_url || null,
       is_submitted: isSubmitted,
       submitted_at: isSubmitted ? new Date().toISOString() : null,
       social_handle: data.social_handle || null,
@@ -157,38 +152,11 @@ export default function RegisterPage() {
 
       {/* Main content */}
       <main className="py-16 px-4">
-        {step === 'payment' && <PaymentChoice onSelect={handlePaymentChoice} />}
-
-        {step === 'form' && (
-          <div>
-            {/* Back to payment choice */}
-            <div className="max-w-2xl mx-auto mb-8">
-              <button
-                onClick={() => setStep('payment')}
-                className="flex items-center gap-2 font-brutal-mono text-sm text-neutral-500 hover:text-lime-400 transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                VOLTAR PARA ESCOLHA
-              </button>
-
-              {/* Payment status indicator */}
-              <div className="mt-4 p-4 border-2 border-neutral-800">
-                <div className="font-brutal-mono text-xs text-neutral-600">
-                  // MODO SELECIONADO:
-                </div>
-                <div className={`font-brutal-mono text-sm ${wantsToPay ? 'text-lime-400' : 'text-neutral-400'}`}>
-                  {wantsToPay ? 'R$20 - COM PREMIACAO' : 'GRATIS - SEM PREMIACAO'}
-                </div>
-              </div>
-            </div>
-
-            <RegistrationForm
-              onSubmit={handleSubmit}
-              onSaveDraft={handleSaveDraft}
-              isSubmitting={isSubmitting}
-            />
-          </div>
-        )}
+        <RegistrationForm
+          onSubmit={handleSubmit}
+          onSaveDraft={handleSaveDraft}
+          isSubmitting={isSubmitting}
+        />
       </main>
 
       {/* Large watermark decoration */}
