@@ -27,6 +27,10 @@ export interface ProjectFormData {
 
 const ALLOWED_IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
 
+// The challenge is fixed for everyone (recreate the Almanac as a seed),
+// so the project name is not chosen by the participant.
+const CHALLENGE_NAME = 'Almanac';
+
 const isValidUrl = (value: string) => /^https?:\/\/.+/i.test(value.trim());
 
 export function RegistrationForm({
@@ -39,7 +43,7 @@ export function RegistrationForm({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const proofInputRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState<ProjectFormData>({
-    name: initialData?.name || '',
+    name: CHALLENGE_NAME, // fixed challenge — not participant-chosen
     short_description: initialData?.short_description || '',
     full_description: initialData?.full_description || '',
     project_url: initialData?.project_url || '',
@@ -166,20 +170,15 @@ export function RegistrationForm({
         REGISTRAR PROJETO
       </h2>
 
-      {/* Project Name */}
+      {/* Fixed challenge — everyone builds the same project, so the name is set */}
       <div>
         <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
-          Nome do Projeto *
+          Desafio
         </label>
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-          className="w-full brutal-input"
-          placeholder="MeuSaaS"
-        />
+        <div className="brutal-border bg-black px-4 py-3 flex items-center justify-between">
+          <span className="font-brutal-display text-xl text-lime-400">{CHALLENGE_NAME}</span>
+          <span className="font-brutal-mono text-xs text-neutral-600">// DESAFIO FIXO</span>
+        </div>
       </div>
 
       {/* Social Handle */}
