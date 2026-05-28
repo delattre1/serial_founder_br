@@ -29,7 +29,7 @@ const OPTIONAL = [
 ];
 
 const NOT_GRADED = [
-  ['Stack', 'Não precisa ser nenhuma tecnologia específica. Sua seed escolhe — o que importa é o comportamento.'],
+  ['Stack', 'Livre — MAS o entregável tem que deployar na Vercel + usar Supabase pro banco (é como testamos). Fora isso, escolha o que quiser.'],
   ['Pixel-perfect', 'Não é pra copiar o visual exato do Almanac. É pra entregar o comportamento.'],
   ['Login corporativo', 'O modelo de auth / convite é seu.'],
 ];
@@ -122,6 +122,17 @@ export default function ChallengePage() {
           </div>
         </section>
 
+        {/* TECH REQUIREMENTS — how it's tested */}
+        <section className="brutal-border-lime bg-black p-8">
+          <h2 className="font-brutal-display text-2xl md:text-3xl text-lime-400 mb-2">// REQUISITOS DE TECNOLOGIA</h2>
+          <p className="font-brutal-mono text-sm text-neutral-400 mb-5">Como vamos testar o seu projeto:</p>
+          <ul className="space-y-3 font-brutal-mono text-base text-neutral-200">
+            <li>► Seu projeto vai ser testado com <strong className="text-white">deploy na Vercel</strong> + <strong className="text-white">banco no Supabase</strong>.</li>
+            <li>► Se o deploy não funcionar na Vercel, ou o banco não rodar no Supabase, <strong className="text-lime-400">o projeto não passou</strong>.</li>
+            <li>► Fora isso, a stack é livre — escolha o que quiser.</li>
+          </ul>
+        </section>
+
         {/* 5. DIFERENCIAIS */}
         <section>
           <h2 className="font-brutal-display text-3xl md:text-4xl text-white mb-2">// DIFERENCIAIS (OPCIONAL)</h2>
@@ -167,9 +178,16 @@ export default function ChallengePage() {
         <section>
           <h2 className="font-brutal-display text-2xl md:text-3xl text-white mb-2">// REFERÊNCIA</h2>
           <p className="font-brutal-mono text-sm text-neutral-400">
-            O que é uma boa receita (spec-driven development): veja o <strong className="text-white">Symfony</strong> e o padrão{' '}
+            O que é uma boa receita (spec-driven development): o{' '}
+            <a href="https://github.com/openai/symphony" target="_blank" rel="noopener noreferrer" className="text-lime-400 hover:underline">Symphony da OpenAI</a>{' '}
+            é o exemplo — o{' '}
+            <a href="https://github.com/openai/symphony/blob/main/SPEC.md" target="_blank" rel="noopener noreferrer" className="text-lime-400 hover:underline">SPEC.md</a>{' '}
+            deles define o projeto inteiro, e você entrega esse spec pro agente construir. É exatamente a ideia de uma SEED: a receita constrói o produto.
+          </p>
+          <p className="font-brutal-mono text-sm text-neutral-400 mt-2">
+            Padrão útil:{' '}
             <a href="https://www.rfc-editor.org/rfc/rfc2119" target="_blank" rel="noopener noreferrer" className="text-lime-400 hover:underline">RFC 2119</a>{' '}
-            (como uma spec descreve o que é obrigatório vs. opcional).
+            — como uma spec marca o que é obrigatório vs. opcional.
           </p>
         </section>
 
