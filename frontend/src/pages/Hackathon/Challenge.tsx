@@ -12,7 +12,7 @@ const JOURNEY = [
 ];
 
 const REQUIRED = [
-  ['ENTRAR', 'Dá pra se registrar / autenticar, e o app sabe quem é você.'],
+  ['ENTRAR (LOGIN COM GOOGLE)', 'A pessoa entra com login do Google e o app sabe quem é.'],
   ['SUBIR + RENDERIZAR', 'Dá pra criar um projeto e subir uma página (HTML); ela aparece igualzinha dentro do app.'],
   ['ACHAR DE NOVO', 'Seus projetos ficam numa lista pra você voltar neles.'],
   ['COMPARTILHAR', 'Tem um link que você manda; o colega abre e vê a mesma página.'],
@@ -31,7 +31,12 @@ const OPTIONAL = [
 const NOT_GRADED = [
   ['Stack', 'Livre — MAS o entregável tem que deployar na Vercel + usar Supabase pro banco (é como testamos). Fora isso, escolha o que quiser.'],
   ['Pixel-perfect', 'Não é pra copiar o visual exato do Almanac. É pra entregar o comportamento.'],
-  ['Login corporativo', 'O modelo de auth / convite é seu.'],
+];
+
+const DELIVERABLES = [
+  ['REPOSITÓRIO GIT COM A SUA SEED', 'Entregue o link de um repositório Git que a gente consegue acessar, contendo a sua SEED. Arquivo principal: SEED.md (pode ter outros .md de apoio). A SEED é o coração do entregável.'],
+  ['DEPLOY FUNCIONANDO EM PRODUÇÃO', 'O projeto tem que estar rodando em produção (deploy na Vercel + banco no Supabase), num link que a gente CONSEGUE ACESSAR E USAR. Não é opcional.'],
+  ['VÍDEO MOSTRANDO FUNCIONANDO', 'Um link público e acessível de um vídeo do produto rodando de verdade.'],
 ];
 
 export default function ChallengePage() {
@@ -68,12 +73,12 @@ export default function ChallengePage() {
         <section className="bg-lime-400 text-black p-8" style={{ border: '3px solid black', boxShadow: '8px 8px 0 0 rgba(0,0,0,1)' }}>
           <div className="flex items-start gap-3 mb-4">
             <FileCode className="w-8 h-8 flex-shrink-0" />
-            <h2 className="font-brutal-display text-2xl md:text-3xl">O ENTREGÁVEL É UMA RECEITA, NÃO UM PRODUTO</h2>
+            <h2 className="font-brutal-display text-2xl md:text-3xl">A SEED É O CORAÇÃO DO ENTREGÁVEL</h2>
           </div>
           <ul className="space-y-3 font-brutal-mono text-sm md:text-base text-black">
-            <li>► Você entrega <strong>UM arquivo .md</strong> (a SEED). <strong>NÃO</strong> é repo de código, <strong>NÃO</strong> são arquivos de projeto, <strong>NÃO</strong> é um app pronto pra baixar.</li>
-            <li>► A seed é a <strong>RECEITA</strong>. Hidratada (colada num agente de IA), o agente <strong>CONSTRÓI o projeto do zero</strong>.</li>
-            <li>► Entregar código / projeto pronto no lugar da seed = <strong>DESQUALIFICADO</strong>.</li>
+            <li>► O que importa é a <strong>RECEITA</strong> (a SEED) que constrói o projeto — <strong>não</strong> um app feito à mão.</li>
+            <li>► Hidratada (colada num agente de IA), a SEED <strong>constrói o projeto do zero</strong>.</li>
+            <li>► Pra validar, exigimos <strong>3 entregáveis (abaixo)</strong>: o repositório Git com a SEED + um deploy acessível + um vídeo. Entregar um app feito à mão <strong>sem a seed que o constrói</strong> = <strong>DESQUALIFICADO</strong>.</li>
           </ul>
         </section>
 
@@ -89,6 +94,23 @@ export default function ChallengePage() {
             Sua missão: escrever uma <strong className="text-lime-400">SEED (.md)</strong> que, hidratada num agente, constrói um app com esse comportamento.
             A seed é a receita. O agente cozinha. No fim, o app tem que rodar.
           </p>
+        </section>
+
+        {/* ENTREGÁVEIS OBRIGATÓRIOS */}
+        <section>
+          <h2 className="font-brutal-display text-3xl md:text-4xl text-white mb-2">// 3 ENTREGÁVEIS OBRIGATÓRIOS</h2>
+          <p className="font-brutal-mono text-sm text-neutral-400 mb-6">Os três são obrigatórios. Faltou um, não passou.</p>
+          <div className="grid gap-4">
+            {DELIVERABLES.map(([title, desc], i) => (
+              <div key={i} className="brutal-border-lime bg-black p-5 flex items-start gap-4">
+                <span className="font-brutal-display text-3xl text-lime-400 leading-none flex-shrink-0">{String.fromCharCode(97 + i)})</span>
+                <div>
+                  <div className="font-brutal-display text-xl text-white">{title}</div>
+                  <p className="font-brutal-mono text-sm text-neutral-400 mt-1">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* 3. JORNADA */}
