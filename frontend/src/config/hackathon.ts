@@ -55,7 +55,7 @@ export const ROUNDS: Record<number, RoundConfig> = {
     theme: 'SEED',
     label: '// 2º HACKATHON RELAMPAGO // SEED EDITION',
     tagline1: 'DA SEED',
-    tagline2: 'AO DEPLOY',
+    tagline2: 'AO PRODUTO',
     marquee:
       '/// HACKATHON RELAMPAGO /// SEED EDITION /// 28-30 MAI /// SHIP OR DIE ///',
     status: 'open',
@@ -87,19 +87,24 @@ export const ROUNDS: Record<number, RoundConfig> = {
     ],
     rules: {
       summary: [
-        'Projeto novo (do zero)',
-        'Tema dentro do desafio SEED',
-        'Deploy publico obrigatorio',
-        'Produto funcional ate o prazo',
+        'Desafio unico ja definido (recriar o Almanac — ver pagina do desafio)',
+        'Produto funcional rodando (deploy publico NAO obrigatorio)',
+        'Video do produto funcionando obrigatorio na submissao',
+        'Construido durante a janela do hackathon (qui→sab)',
       ],
       allowed: [
         'IA (Claude, Cursor, etc.)',
         'Templates, libs, OSS',
         'Infra existente',
         'Participacao individual (solo)',
+        'Tudo construido durante a janela (qui→sab)',
         'Ajuda de qualquer pessoa (ate a avo)',
       ],
-      notAllowed: ['Codigo proprio antigo', 'Produto ja existente'],
+      notAllowed: [
+        'Codigo proprio antigo ou reaproveitado',
+        'Produto que voce ja tinha construido',
+        'Qualquer coisa feita antes da janela do hackathon',
+      ],
       docPending: true, // CEO will publish the full SEED spec doc
       docUrl: undefined,
     },

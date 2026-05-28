@@ -46,6 +46,7 @@ export default function MyProjectPage() {
           github_url: data.github_url || '',
           screenshot_url: data.screenshot_url || '',
           social_handle: data.social_handle || '',
+          demo_video_url: data.demo_video_url || '',
           entry_shared: data.entry_shared ?? false,
           entry_proof_url: data.entry_proof_url || '',
           is_submitted: data.is_submitted,
@@ -87,6 +88,7 @@ export default function MyProjectPage() {
           project_url: data.project_url,
           github_url: data.github_url || null,
           screenshot_url: data.screenshot_url || null,
+          demo_video_url: data.demo_video_url || null,
           entry_shared: data.entry_shared,
           entry_proof_url: data.entry_proof_url || null,
           social_handle: data.social_handle || null,
@@ -122,6 +124,7 @@ export default function MyProjectPage() {
           project_url: data.project_url,
           github_url: data.github_url || null,
           screenshot_url: data.screenshot_url || null,
+          demo_video_url: data.demo_video_url || null,
           entry_shared: data.entry_shared,
           entry_proof_url: data.entry_proof_url || null,
           social_handle: data.social_handle || null,
@@ -221,6 +224,18 @@ export default function MyProjectPage() {
                     VER PAGINA PUBLICA
                   </Link>
 
+                  {project?.demo_video_url && (
+                    <a
+                      href={project.demo_video_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="border-2 border-neutral-600 px-6 py-3 text-neutral-400 font-brutal-mono flex items-center gap-2 hover:border-lime-400 hover:text-lime-400 transition-colors"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      VER VIDEO
+                    </a>
+                  )}
+
                   {project?.project_url && (
                     <a
                       href={project.project_url}
@@ -229,7 +244,7 @@ export default function MyProjectPage() {
                       className="border-2 border-neutral-600 px-6 py-3 text-neutral-400 font-brutal-mono flex items-center gap-2 hover:border-lime-400 hover:text-lime-400 transition-colors"
                     >
                       <ExternalLink className="w-4 h-4" />
-                      ACESSAR DEPLOY
+                      ABRIR PROJETO
                     </a>
                   )}
                 </div>
@@ -239,19 +254,34 @@ export default function MyProjectPage() {
               <div className="space-y-8">
                 {/* URLs */}
                 <div className="brutal-border bg-black p-6">
-                  <h3 className="font-brutal-display text-lg text-lime-400 mb-4">URLS</h3>
+                  <h3 className="font-brutal-display text-lg text-lime-400 mb-4">LINKS</h3>
                   <div className="space-y-3 font-brutal-mono text-sm">
-                    <div className="flex items-center justify-between">
-                      <span className="text-neutral-500">Deploy:</span>
-                      <a
-                        href={project?.project_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-white hover:text-lime-400"
-                      >
-                        {project?.project_url}
-                      </a>
-                    </div>
+                    {project?.demo_video_url && (
+                      <div className="flex items-center justify-between gap-4">
+                        <span className="text-neutral-500">Video:</span>
+                        <a
+                          href={project.demo_video_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-white hover:text-lime-400 truncate"
+                        >
+                          {project.demo_video_url}
+                        </a>
+                      </div>
+                    )}
+                    {project?.project_url && (
+                      <div className="flex items-center justify-between gap-4">
+                        <span className="text-neutral-500">Projeto:</span>
+                        <a
+                          href={project.project_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-white hover:text-lime-400 truncate"
+                        >
+                          {project.project_url}
+                        </a>
+                      </div>
+                    )}
                     {project?.github_url && (
                       <div className="flex items-center justify-between">
                         <span className="text-neutral-500">GitHub:</span>

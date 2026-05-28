@@ -1,8 +1,16 @@
-import { Check, X, Share2 } from 'lucide-react';
+import { Check, X, Share2, Trophy, Medal, Award } from 'lucide-react';
 import { CURRENT } from '@/config/hackathon';
+
+const PLACE_STYLE = {
+  1: { icon: Trophy, text: 'text-yellow-400', hex: '#facc15', label: '1º LUGAR' },
+  2: { icon: Medal, text: 'text-neutral-300', hex: '#d4d4d4', label: '2º LUGAR' },
+  3: { icon: Award, text: 'text-orange-400', hex: '#fb923c', label: '3º LUGAR' },
+} as const;
 
 export function HackathonRules() {
   const { rules, entry, prizes, prizesNote } = CURRENT;
+  const totalUsd = prizes.reduce((s, p) => s + p.usd, 0);
+  const totalBrl = Math.round(prizes.reduce((s, p) => s + p.brl, 0) / 100) * 100;
 
   return (
     <section id="regras" className="py-16 px-4 border-t-2 border-neutral-800">
@@ -90,24 +98,40 @@ export function HackathonRules() {
           </div>
         </div>
 
-        {/* Prize info */}
-        <div className="mt-12 brutal-border-lime p-8">
-          <h3 className="font-brutal-display text-2xl text-white mb-4">PREMIACAO</h3>
-          <p className="font-brutal-mono text-neutral-400 mb-6">{prizesNote}</p>
-          <div className="grid grid-cols-3 gap-4 text-center">
-            {prizes.map((p) => (
-              <div key={p.place}>
-                <div
-                  className={`font-brutal-display text-3xl ${
-                    p.place === 1 ? 'text-lime-400' : p.place === 2 ? 'text-neutral-300' : 'text-neutral-500'
-                  }`}
-                >
-                  {p.place}º
-                </div>
-                <div className="font-brutal-mono text-lg text-white mt-1">${p.usd}</div>
-                <div className="font-brutal-mono text-xs text-neutral-500">~R${p.brl}</div>
+        {/* Prize info — podium bars */}
+        <div className="mt-12">
+          <div className="flex items-end justify-between flex-wrap gap-4 mb-2">
+            <h3 className="font-brutal-display text-3xl md:text-4xl text-white">PREMIACAO</h3>
+            <div className="text-right">
+              <div className="font-brutal-mono text-xs text-neutral-500 tracking-widest">// POOL TOTAL</div>
+              <div className="font-brutal-display text-3xl md:text-4xl text-lime-400">
+                ${totalUsd} <span className="text-neutral-500 text-xl md:text-2xl">· ~R${totalBrl.toLocaleString('pt-BR')}</span>
               </div>
-            ))}
+            </div>
+          </div>
+          <p className="font-brutal-mono text-neutral-400 mb-8">{prizesNote}</p>
+
+          <div className="space-y-5">
+            {prizes.map((p) => {
+              const cfg = PLACE_STYLE[p.place as 1 | 2 | 3];
+              const Icon = cfg.icon;
+              return (
+                <div
+                  key={p.place}
+                  className="bg-black p-6 flex items-center justify-between gap-4"
+                  style={{ border: `3px solid ${cfg.hex}`, boxShadow: `8px 8px 0 0 ${cfg.hex}` }}
+                >
+                  <div className="flex items-center gap-4 min-w-0">
+                    <Icon className={`w-10 h-10 md:w-12 md:h-12 flex-shrink-0 ${cfg.text}`} />
+                    <div className={`font-brutal-display text-2xl md:text-3xl ${cfg.text}`}>{cfg.label}</div>
+                  </div>
+                  <div className="text-right flex-shrink-0">
+                    <div className="font-brutal-display text-4xl md:text-5xl text-white leading-none">${p.usd}</div>
+                    <div className="font-brutal-mono text-sm text-neutral-500 mt-1">~R${p.brl}</div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

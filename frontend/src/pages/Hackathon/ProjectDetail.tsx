@@ -8,6 +8,7 @@ interface ProjectDetail extends Project {
   full_description?: string;
   how_it_was_built?: string;
   social_handle?: string;
+  demo_video_url?: string;
 }
 
 export default function ProjectDetailPage() {
@@ -59,6 +60,7 @@ export default function ProjectDetailPage() {
           user_id: data.user_id,
           username: '',
           social_handle: data.social_handle || '',
+          demo_video_url: data.demo_video_url || '',
         });
       }
 
@@ -144,14 +146,16 @@ export default function ProjectDetailPage() {
                     alt={project.name}
                     className="w-full h-full object-cover"
                   />
-                  <button
-                    onClick={() => setShowIframe(true)}
-                    className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity"
-                  >
-                    <span className="bg-lime-400 text-black px-6 py-3 font-brutal-mono">
-                      VER PREVIEW AO VIVO
-                    </span>
-                  </button>
+                  {project.project_url && (
+                    <button
+                      onClick={() => setShowIframe(true)}
+                      className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity"
+                    >
+                      <span className="bg-lime-400 text-black px-6 py-3 font-brutal-mono">
+                        VER PREVIEW AO VIVO
+                      </span>
+                    </button>
+                  )}
                 </>
               ) : (
                 <>
@@ -183,15 +187,29 @@ export default function ProjectDetailPage() {
 
           {/* Action buttons */}
           <div className="flex flex-wrap gap-4 mb-12">
-            <a
-              href={project.project_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-lime-400 text-black brutal-border-inverse px-6 py-3 font-brutal-mono flex items-center gap-2 hover-shift-dark"
-            >
-              <ExternalLink className="w-4 h-4" />
-              ACESSAR PROJETO
-            </a>
+            {project.demo_video_url && (
+              <a
+                href={project.demo_video_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-lime-400 text-black brutal-border-inverse px-6 py-3 font-brutal-mono flex items-center gap-2 hover-shift-dark"
+              >
+                <ExternalLink className="w-4 h-4" />
+                VER VIDEO
+              </a>
+            )}
+
+            {project.project_url && (
+              <a
+                href={project.project_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="brutal-border bg-black px-6 py-3 text-white font-brutal-mono flex items-center gap-2 hover-shift"
+              >
+                <ExternalLink className="w-4 h-4" />
+                ABRIR PROJETO
+              </a>
+            )}
 
             {project.github_url && (
               <a

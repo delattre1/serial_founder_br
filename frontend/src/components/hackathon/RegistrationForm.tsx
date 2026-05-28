@@ -20,11 +20,14 @@ export interface ProjectFormData {
   how_it_was_built: string;
   screenshot_url: string;
   social_handle: string;
+  demo_video_url: string; // public link (Loom/YouTube/Drive/etc.) to a demo video
   entry_shared: boolean;
   entry_proof_url: string; // Supabase Storage URL of the repost screenshot
 }
 
 const ALLOWED_IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
+
+const isValidUrl = (value: string) => /^https?:\/\/.+/i.test(value.trim());
 
 export function RegistrationForm({
   onSubmit,
@@ -44,6 +47,7 @@ export function RegistrationForm({
     how_it_was_built: initialData?.how_it_was_built || '',
     screenshot_url: initialData?.screenshot_url || '',
     social_handle: initialData?.social_handle || '',
+    demo_video_url: initialData?.demo_video_url || '',
     entry_shared: initialData?.entry_shared ?? false,
     entry_proof_url: initialData?.entry_proof_url || '',
   });
@@ -54,6 +58,7 @@ export function RegistrationForm({
   const [isUploadingProof, setIsUploadingProof] = useState(false);
   const [proofError, setProofError] = useState<string | null>(null);
   const [entryError, setEntryError] = useState<string | null>(null);
+  const [videoError, setVideoError] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -69,6 +74,12 @@ export function RegistrationForm({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isValidUrl(formData.demo_video_url)) {
+      setVideoError('Adicione o link do video do produto funcionando (URL publica e acessivel).');
+      return;
+    }
+    setVideoError(null);
 
     if (!formData.entry_shared) {
       setEntryError('Voce precisa repostar o video (marcando @danedelattre) e confirmar a caixa para submeter.');
@@ -206,20 +217,44 @@ export function RegistrationForm({
         />
       </div>
 
-      {/* Project URL */}
+      {/* Project / repo URL (optional — no public deploy required) */}
       <div>
         <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
-          URL do Projeto * <span className="text-neutral-600">(deploy publico)</span>
+          Link do projeto / repo <span className="text-neutral-600">(opcional)</span>
         </label>
         <input
           type="url"
           name="project_url"
           value={formData.project_url}
           onChange={handleChange}
-          required
           className="w-full brutal-input"
-          placeholder="https://meusaas.com"
+          placeholder="https://github.com/user/seed-repo"
         />
+        <p className="font-brutal-mono text-neutral-600 text-xs mt-2">
+          Deploy publico NAO e obrigatorio. Pode ser o repo com a sua SEED (.md).
+        </p>
+      </div>
+
+      {/* Demo video — REQUIRED public link */}
+      <div>
+        <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
+          Video do produto funcionando * <span className="text-neutral-600">(Loom, YouTube, Drive, etc.)</span>
+        </label>
+        <input
+          type="url"
+          name="demo_video_url"
+          value={formData.demo_video_url}
+          onChange={(e) => {
+            setVideoError(null);
+            handleChange(e);
+          }}
+          className="w-full brutal-input"
+          placeholder="https://loom.com/share/..."
+        />
+        <p className="font-brutal-mono text-neutral-600 text-xs mt-2">
+          O link PRECISA estar publico e acessivel. Se nao abrir, a submissao e desqualificada.
+        </p>
+        {videoError && <p className="font-brutal-mono text-red-500 text-sm mt-2">{videoError}</p>}
       </div>
 
       {/* How it was built */}
