@@ -15,7 +15,7 @@ export interface PrizeTier {
 export interface RoundConfig {
   round: number;
   edition: string; // "2º"
-  name: string; // "HACKATHON RELAMPAGO"
+  name: string; // "HACKATHON RELÂMPAGO"
   theme: string; // "SEED"
   label: string; // small kicker above the hero headline
   tagline1: string; // hero headline line 1 (solid)
@@ -51,35 +51,35 @@ export const ROUNDS: Record<number, RoundConfig> = {
   2: {
     round: 2,
     edition: '2º',
-    name: 'HACKATHON RELAMPAGO',
+    name: 'HACKATHON RELÂMPAGO',
     theme: 'SEED',
-    label: '// 2º HACKATHON RELAMPAGO // SEED EDITION',
+    label: '// 2º HACKATHON RELÂMPAGO // SEED EDITION',
     tagline1: 'DA SEED',
     tagline2: 'AO PRODUTO',
     marquee:
-      '/// HACKATHON RELAMPAGO /// SEED EDITION /// 28-30 MAI /// SHIP OR DIE ///',
+      '/// HACKATHON RELÂMPAGO /// SEED EDITION /// 28-30 MAI /// SHIP OR DIE ///',
     status: 'open',
     dates: {
       startLabel: '28/05 15:30',
       endLabel: '30/05 23:59',
       subinfo: [
-        '// INSCRICOES ATE: 28/05 23:30 BRT (quinta)',
-        '// INICIO: 28/05 15:30 BRT (quinta)',
-        '// SUBMISSAO ATE: 30/05 23:59 BRT (sabado)',
+        '// INSCRIÇÕES ATÉ: 28/05 23:30 BRT (quinta)',
+        '// INÍCIO: 28/05 15:30 BRT (quinta)',
+        '// SUBMISSÃO ATÉ: 30/05 23:59 BRT (sábado)',
         '// VENCEDORES (live): 31/05 18:30 BRT (domingo) — Top 3 fazem pitch',
       ],
     },
     voting: { enabled: false },
     entry: {
-      headline: 'INSCRICAO = COMPARTILHAR O VIDEO',
+      headline: 'INSCRIÇÃO = COMPARTILHAR O VÍDEO',
       description:
-        'Sem taxa. Reposte o video de anuncio do hackathon no seu Instagram marcando @danedelattre. Esse repost e a sua inscricao.',
-      checkboxLabel: 'Repostei o video de anuncio no Instagram e marquei @danedelattre',
+        'Sem taxa. Reposte o vídeo de anúncio do hackathon no seu Instagram marcando @danedelattre. Esse repost é a sua inscrição.',
+      checkboxLabel: 'Repostei o vídeo de anúncio no Instagram e marquei @danedelattre',
       proofLabel: 'Print do seu repost (deve aparecer @danedelattre marcado) *',
       proofHint:
-        'Envie o print do seu story/post mostrando a marcacao. O premio so e pago apos o Daniel confirmar o repost.',
+        'Envie o print do seu story/post mostrando a marcação. O prêmio só é pago após o Daniel confirmar o repost.',
     },
-    prizesNote: 'Premiacao bancada pelo Daniel (paga em dolar). Top 3 levam:',
+    prizesNote: 'Premiação bancada pelo Daniel (paga em dólar). Top 3 levam:',
     prizes: [
       { place: 1, usd: 125, brl: 600 },
       { place: 2, usd: 50, brl: 250 },
@@ -87,20 +87,20 @@ export const ROUNDS: Record<number, RoundConfig> = {
     ],
     rules: {
       summary: [
-        'Desafio unico ja definido (recriar o Almanac — ver pagina do desafio)',
-        'Produto funcional rodando (deploy publico NAO obrigatorio)',
-        'Video do produto funcionando obrigatorio na submissao',
-        'Construido durante a janela do hackathon (qui→sab)',
+        'Desafio único já definido (recriar o Almanac — ver página do desafio)',
+        'Produto funcional rodando (deploy público NÃO obrigatório)',
+        'Vídeo do produto funcionando obrigatório na submissão',
+        'Construído durante a janela do hackathon (qui→sáb)',
       ],
       allowed: [
         'IA (Claude, Cursor, etc.)',
         'Templates, libs, OSS',
         'Infra existente',
-        'Participacao individual (solo)',
-        'Tudo construido durante a janela (qui→sab)',
-        'Ajuda de qualquer pessoa (ate a avo)',
+        'Participação individual (solo)',
+        'Tudo construído durante a janela (qui→sáb)',
+        'Ajuda de qualquer pessoa (até a avó)',
       ],
-      notAllowed: ['Entregar algo que nao seja uma seed'],
+      notAllowed: ['Entregar algo que não seja uma seed'],
       docPending: true, // CEO will publish the full SEED spec doc
       docUrl: undefined,
     },

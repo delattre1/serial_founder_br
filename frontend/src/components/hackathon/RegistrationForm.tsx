@@ -76,17 +76,17 @@ export function RegistrationForm({
     e.preventDefault();
 
     if (!isValidUrl(formData.demo_video_url)) {
-      setVideoError('Adicione o link do video do produto funcionando (URL publica e acessivel).');
+      setVideoError('Adicione o link do vídeo do produto funcionando (URL pública e acessível).');
       return;
     }
     setVideoError(null);
 
     if (!formData.entry_shared) {
-      setEntryError('Voce precisa repostar o video (marcando @danedelattre) e confirmar a caixa para submeter.');
+      setEntryError('Você precisa repostar o vídeo (marcando @danedelattre) e confirmar a caixa para submeter.');
       return;
     }
     if (!formData.entry_proof_url) {
-      setEntryError('Envie o print do seu repost para submeter (o premio so e pago apos confirmacao).');
+      setEntryError('Envie o print do seu repost para submeter (o prêmio só é pago após confirmação).');
       return;
     }
 
@@ -100,12 +100,12 @@ export function RegistrationForm({
 
   // Uploads an image to the hackathon-screenshots bucket, returns the public URL.
   const uploadImage = async (file: File, maxMB: number): Promise<string> => {
-    if (!user) throw new Error('Faca login para enviar a imagem.');
+    if (!user) throw new Error('Faça login para enviar a imagem.');
     if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
-      throw new Error('Formato invalido. Use PNG, JPG ou WEBP.');
+      throw new Error('Formato inválido. Use PNG, JPG ou WEBP.');
     }
     if (file.size > maxMB * 1024 * 1024) {
-      throw new Error(`Imagem muito grande. Maximo ${maxMB}MB.`);
+      throw new Error(`Imagem muito grande. Máximo ${maxMB}MB.`);
     }
     const fileExt = file.name.split('.').pop();
     const fileName = `${user.id}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${fileExt}`;
@@ -196,14 +196,14 @@ export function RegistrationForm({
           placeholder="@seuhandle"
         />
         <p className="font-brutal-mono text-neutral-600 text-xs mt-2">
-          Sera exibido na pagina do projeto
+          Será exibido na página do projeto
         </p>
       </div>
 
       {/* Short Description */}
       <div>
         <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
-          Descricao Curta * <span className="text-neutral-600">({charCount}/160)</span>
+          Descrição Curta * <span className="text-neutral-600">({charCount}/160)</span>
         </label>
         <input
           type="text"
@@ -231,14 +231,14 @@ export function RegistrationForm({
           placeholder="https://github.com/user/seed-repo"
         />
         <p className="font-brutal-mono text-neutral-600 text-xs mt-2">
-          Deploy publico NAO e obrigatorio. Pode ser o repo com a sua SEED (.md).
+          Deploy público NÃO é obrigatório. Pode ser o repo com a sua SEED (.md).
         </p>
       </div>
 
       {/* Demo video — REQUIRED public link */}
       <div>
         <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
-          Video do produto funcionando * <span className="text-neutral-600">(Loom, YouTube, Drive, etc.)</span>
+          Vídeo do produto funcionando * <span className="text-neutral-600">(Loom, YouTube, Drive, etc.)</span>
         </label>
         <input
           type="url"
@@ -252,7 +252,7 @@ export function RegistrationForm({
           placeholder="https://loom.com/share/..."
         />
         <p className="font-brutal-mono text-neutral-600 text-xs mt-2">
-          O link PRECISA estar publico e acessivel. Se nao abrir, a submissao e desqualificada.
+          O link PRECISA estar público e acessível. Se não abrir, a submissão é desqualificada.
         </p>
         {videoError && <p className="font-brutal-mono text-red-500 text-sm mt-2">{videoError}</p>}
       </div>
@@ -260,7 +260,7 @@ export function RegistrationForm({
       {/* How it was built */}
       <div>
         <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
-          Como foi construido? <span className="text-neutral-600">(suporta markdown)</span>
+          Como foi construído? <span className="text-neutral-600">(suporta markdown)</span>
         </label>
         <textarea
           name="how_it_was_built"
@@ -286,7 +286,7 @@ Comecei definindo o problema...`}
       {/* Full Description */}
       <div>
         <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
-          Descricao Completa <span className="text-neutral-600">(suporta markdown)</span>
+          Descrição Completa <span className="text-neutral-600">(suporta markdown)</span>
         </label>
         <textarea
           name="full_description"
