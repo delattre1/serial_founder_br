@@ -100,11 +100,7 @@ export const ROUNDS: Record<number, RoundConfig> = {
         'Tudo construido durante a janela (qui→sab)',
         'Ajuda de qualquer pessoa (ate a avo)',
       ],
-      notAllowed: [
-        'Codigo proprio antigo ou reaproveitado',
-        'Produto que voce ja tinha construido',
-        'Qualquer coisa feita antes da janela do hackathon',
-      ],
+      notAllowed: ['Entregar algo que nao seja uma seed'],
       docPending: true, // CEO will publish the full SEED spec doc
       docUrl: undefined,
     },
