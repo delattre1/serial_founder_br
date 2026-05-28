@@ -216,21 +216,41 @@ export function RegistrationForm({
         />
       </div>
 
-      {/* Project / repo URL (optional — no public deploy required) */}
+      {/* Entregável 1: repositório Git com a SEED — OBRIGATÓRIO */}
       <div>
         <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
-          Link do projeto / repo <span className="text-neutral-400">(opcional)</span>
+          Link do repositório Git (com sua SEED) *
+        </label>
+        <input
+          type="url"
+          name="github_url"
+          value={formData.github_url}
+          onChange={handleChange}
+          required
+          className="w-full brutal-input"
+          placeholder="https://github.com/user/sua-seed"
+        />
+        <p className="font-brutal-mono text-neutral-400 text-sm mt-2">
+          Repositório Git com sua SEED. Arquivo principal: SEED.md (pode ter outros .md de apoio).
+        </p>
+      </div>
+
+      {/* Entregável 2: deploy em produção — OBRIGATÓRIO */}
+      <div>
+        <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
+          Link do projeto em produção (deploy) *
         </label>
         <input
           type="url"
           name="project_url"
           value={formData.project_url}
           onChange={handleChange}
+          required
           className="w-full brutal-input"
-          placeholder="https://github.com/user/seed-repo"
+          placeholder="https://seu-projeto.vercel.app"
         />
         <p className="font-brutal-mono text-neutral-400 text-sm mt-2">
-          Deploy público NÃO é obrigatório. Pode ser o repo com a sua SEED (.md).
+          Tem que estar rodando em produção (Vercel + Supabase). Vamos acessar e usar — se não abrir / funcionar, não passou.
         </p>
       </div>
 
@@ -300,21 +320,6 @@ Descreva seu projeto aqui...`}
         <p className="font-brutal-mono text-neutral-400 text-sm mt-2">
           Use ## para títulos grandes, ### para subtítulos, - para listas
         </p>
-      </div>
-
-      {/* GitHub URL */}
-      <div>
-        <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
-          GitHub <span className="text-neutral-400">(opcional)</span>
-        </label>
-        <input
-          type="url"
-          name="github_url"
-          value={formData.github_url}
-          onChange={handleChange}
-          className="w-full brutal-input"
-          placeholder="https://github.com/user/repo"
-        />
       </div>
 
       {/* Screenshot Upload */}
