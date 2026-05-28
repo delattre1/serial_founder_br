@@ -166,7 +166,7 @@ export default function Home() {
           <div className="marquee-content whitespace-nowrap">
             {[...Array(4)].map((_, i) => (
               <span key={i} className="mx-8 text-sm font-bold tracking-wider">
-                /// SERIAL FOUNDERS BRASIL /// DEVS QUE LANCAM /// BUILD IN PUBLIC /// SHIP OR DIE ///
+                /// SERIAL FOUNDERS BRASIL /// DEVS QUE LANÇAM /// BUILD IN PUBLIC /// SHIP OR DIE ///
               </span>
             ))}
           </div>
@@ -189,16 +189,16 @@ export default function Home() {
           <div className="container mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="text-lime-400 text-xs tracking-widest font-brutal-mono">
-                /// INSCRICOES ABERTAS ///
+                /// INSCRIÇÕES ABERTAS ///
               </div>
               <div className="hidden md:block text-neutral-600">|</div>
               <h3 className="font-brutal-display text-xl md:text-2xl">
-                {CURRENT.edition} HACKATHON <span className="text-lime-400">RELAMPAGO</span> · {CURRENT.theme}
+                {CURRENT.edition} HACKATHON <span className="text-lime-400">RELÂMPAGO</span> · {CURRENT.theme}
               </h3>
             </div>
             <div className="flex items-center gap-4">
               <span className="font-brutal-mono text-neutral-400 text-sm">
-                ENTREGA ATE {CURRENT.dates.endLabel}
+                ENTREGA ATÉ {CURRENT.dates.endLabel}
               </span>
               <span className="bg-lime-400 text-black px-4 py-2 font-brutal-display text-sm">
                 PARTICIPAR →
@@ -212,7 +212,7 @@ export default function Home() {
 
           {/* Status line */}
           <div className="text-lime-400 text-xs md:text-sm mb-8 tracking-widest">
-            // PARA DEVS QUE CANSARAM DE SO PLANEJAR
+            // PARA DEVS QUE CANSARAM DE SÓ PLANEJAR
           </div>
 
           {/* Main headline */}
@@ -226,7 +226,7 @@ export default function Home() {
               onClick={handleGoogleSignIn}
               className="font-brutal-display text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-none tracking-tight text-lime-400 hover:text-white transition-colors cursor-pointer group"
             >
-              COMECE A LANCAR
+              COMECE A LANÇAR
               <span className="inline-block ml-2 md:ml-4 group-hover:translate-x-2 transition-transform">→</span>
             </button>
           </div>
@@ -234,13 +234,13 @@ export default function Home() {
           {/* Subtext */}
           <div className="max-w-2xl text-center mb-12">
             <p className="text-neutral-400 text-base md:text-lg leading-relaxed mb-6">
-              Voce tem uma ideia. Voce sabe programar.
+              Você tem uma ideia. Você sabe programar.
               <br className="hidden md:block" />
-              Mas seu projeto ainda esta na sua cabeca.
+              Mas seu projeto ainda está na sua cabeça.
             </p>
             <p className="text-white text-lg md:text-xl">
-              <span className="text-lime-400">Serial Founders Brasil</span> e a comunidade que
-              transforma devs em founders que <span className="font-bold">LANCAM</span>.
+              <span className="text-lime-400">Serial Founders Brasil</span> é a comunidade que
+              transforma devs em founders que <span className="font-bold">LANÇAM</span>.
             </p>
           </div>
 
@@ -264,7 +264,7 @@ export default function Home() {
           </button>
 
           <p className="text-neutral-600 text-sm tracking-wider">
-            100% GRATIS // SEM CARTAO // SEM PEGADINHA
+            100% GRÁTIS // SEM CARTÃO // SEM PEGADINHA
           </p>
         </main>
 
@@ -303,13 +303,13 @@ export default function Home() {
             <div className="max-w-3xl mx-auto">
               <div className="text-neutral-600 text-xs mb-4 tracking-widest">MANIFEST.txt</div>
               <pre className="text-neutral-500 text-sm md:text-base leading-relaxed font-brutal-mono">
-{`> Ideias sao lixo. Execucao e tudo.
-> Feedback do mercado > sua opiniao.
-> Lancou feio? Parabens, lancou.
-> Perfeccionismo e desculpa de quem tem medo.
-> 1 usuario pagante > 1000 likes no Twitter.
-> Seu emprego CLT nao e desculpa.
-> Se nao lancou, nao existe.`}
+{`> Ideias são lixo. Execução é tudo.
+> Feedback do mercado > sua opinião.
+> Lançou feio? Parabéns, lançou.
+> Perfeccionismo é desculpa de quem tem medo.
+> 1 usuário pagante > 1000 likes no Twitter.
+> Seu emprego CLT não é desculpa.
+> Se não lançou, não existe.`}
               </pre>
             </div>
           </div>
@@ -319,7 +319,7 @@ export default function Home() {
         <section className="border-t-2 border-neutral-800 py-20">
           <div className="container mx-auto px-6 text-center">
             <h3 className="font-brutal-display text-3xl md:text-5xl mb-6">
-              PRONTO PRA <span className="text-lime-400">LANCAR</span>?
+              PRONTO PRA <span className="text-lime-400">LANÇAR</span>?
             </h3>
             <button
               onClick={handleGoogleSignIn}

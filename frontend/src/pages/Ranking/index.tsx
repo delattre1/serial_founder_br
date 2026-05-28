@@ -94,8 +94,8 @@ export default function RankingPage() {
       <div className="bg-lime-400 text-black py-2 overflow-hidden">
         <div className="marquee-container">
           <div className="marquee-content font-brutal-mono text-sm tracking-wider">
-            SERIAL_FOUNDERS // RANKING // {currentWeek || '2025'} // QUEM SHIP, APARECE // QUEM NAO SHIP, SOME //&nbsp;
-            SERIAL_FOUNDERS // RANKING // {currentWeek || '2025'} // QUEM SHIP, APARECE // QUEM NAO SHIP, SOME //&nbsp;
+            SERIAL_FOUNDERS // RANKING // {currentWeek || '2025'} // QUEM SHIP, APARECE // QUEM NÃO SHIP, SOME //&nbsp;
+            SERIAL_FOUNDERS // RANKING // {currentWeek || '2025'} // QUEM SHIP, APARECE // QUEM NÃO SHIP, SOME //&nbsp;
           </div>
         </div>
       </div>
@@ -143,7 +143,7 @@ export default function RankingPage() {
               // QUEM SHIP, APARECE.
             </p>
             <p className="font-brutal-mono text-lg text-neutral-400">
-              // QUEM NAO SHIP, SOME.
+              // QUEM NÃO SHIP, SOME.
             </p>
           </div>
         </div>
@@ -164,7 +164,7 @@ export default function RankingPage() {
                 // NENHUM MEMBRO NO RANKING AINDA
               </div>
               <p className="font-brutal-mono text-neutral-600">
-                Os rankings serao atualizados semanalmente.
+                Os rankings serão atualizados semanalmente.
               </p>
             </div>
           ) : (

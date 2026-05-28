@@ -33,10 +33,10 @@ export function HackathonRules() {
           {rules.docPending && (
             <div className="mt-6 border-2 border-neutral-800 bg-black p-4">
               <div className="font-brutal-mono text-sm text-lime-400">
-                // DOCUMENTACAO COMPLETA DAS REGRAS SEED EM BREVE
+                // DOCUMENTAÇÃO COMPLETA DAS REGRAS SEED EM BREVE
               </div>
               <p className="font-brutal-mono text-xs text-neutral-500 mt-1">
-                O Daniel vai publicar e compartilhar a especificacao completa do desafio.
+                O Daniel vai publicar e compartilhar a especificação completa do desafio.
               </p>
               {rules.docUrl && (
                 <a
@@ -45,7 +45,7 @@ export function HackathonRules() {
                   rel="noopener noreferrer"
                   className="inline-block mt-2 font-brutal-mono text-xs text-lime-400 hover:underline"
                 >
-                  [VER DOCUMENTACAO]
+                  [VER DOCUMENTAÇÃO]
                 </a>
               )}
             </div>
@@ -72,7 +72,7 @@ export function HackathonRules() {
 
           {/* Not allowed */}
           <div className="border-3 border-red-500 bg-black p-8" style={{ border: '3px solid #ef4444' }}>
-            <h3 className="font-brutal-display text-2xl text-red-500 mb-6">O QUE NAO PODE?</h3>
+            <h3 className="font-brutal-display text-2xl text-red-500 mb-6">O QUE NÃO PODE?</h3>
             <div className="space-y-3">
               {rules.notAllowed.map((item, index) => (
                 <div
@@ -101,7 +101,7 @@ export function HackathonRules() {
         {/* Prize info — podium bars */}
         <div className="mt-12">
           <div className="flex items-end justify-between flex-wrap gap-4 mb-2">
-            <h3 className="font-brutal-display text-3xl md:text-4xl text-white">PREMIACAO</h3>
+            <h3 className="font-brutal-display text-3xl md:text-4xl text-white">PREMIAÇÃO</h3>
             <div className="text-right">
               <div className="font-brutal-mono text-xs text-neutral-500 tracking-widest">// POOL TOTAL</div>
               <div className="font-brutal-display text-3xl md:text-4xl text-lime-400">

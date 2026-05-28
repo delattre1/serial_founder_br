@@ -4,16 +4,16 @@ import { useEffect, useState } from 'react';
 import { CURRENT } from '@/config/hackathon';
 
 const BRUTAL_MESSAGES = [
-  { text: "Sem desculpas. Sem mimimi. So", highlight: "EXECUCAO" },
-  { text: "Feito e melhor que", highlight: "PERFEITO" },
-  { text: "Seu medo e o unico", highlight: "OBSTACULO" },
-  { text: "Enquanto voce planeja, outros", highlight: "LANCAM" },
-  { text: "Ideias sao lixo. So vale a", highlight: "ACAO" },
-  { text: "O mercado nao liga pro seu", highlight: "EGO" },
-  { text: "Menos conversa. Mais", highlight: "CODIGO" },
-  { text: "Perfeccionismo e", highlight: "PROCRASTINACAO" },
-  { text: "Feedback real >", highlight: "SUPOSICOES" },
-  { text: "Tempo e o unico recurso", highlight: "FINITO" },
+  { text: "Sem desculpas. Sem mimimi. Só", highlight: "EXECUÇÃO" },
+  { text: "Feito é melhor que", highlight: "PERFEITO" },
+  { text: "Seu medo é o único", highlight: "OBSTÁCULO" },
+  { text: "Enquanto você planeja, outros", highlight: "LANÇAM" },
+  { text: "Ideias são lixo. Só vale a", highlight: "AÇÃO" },
+  { text: "O mercado não liga pro seu", highlight: "EGO" },
+  { text: "Menos conversa. Mais", highlight: "CÓDIGO" },
+  { text: "Perfeccionismo é", highlight: "PROCRASTINAÇÃO" },
+  { text: "Feedback real >", highlight: "SUPOSIÇÕES" },
+  { text: "Tempo é o único recurso", highlight: "FINITO" },
 ];
 
 export default function Dashboard() {
@@ -224,16 +224,16 @@ export default function Dashboard() {
           <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="text-lime-400 text-xs tracking-widest font-brutal-mono">
-                /// INSCRICOES ABERTAS ///
+                /// INSCRIÇÕES ABERTAS ///
               </div>
               <div className="hidden md:block text-neutral-600">|</div>
               <h3 className="font-brutal-display text-xl md:text-2xl">
-                {CURRENT.edition} HACKATHON <span className="text-lime-400">RELAMPAGO</span> · {CURRENT.theme}
+                {CURRENT.edition} HACKATHON <span className="text-lime-400">RELÂMPAGO</span> · {CURRENT.theme}
               </h3>
             </div>
             <div className="flex items-center gap-4">
               <span className="font-brutal-mono text-neutral-400 text-sm">
-                ENTREGA ATE {CURRENT.dates.endLabel}
+                ENTREGA ATÉ {CURRENT.dates.endLabel}
               </span>
               <span className="bg-lime-400 text-black px-4 py-2 font-brutal-display text-sm">
                 PARTICIPAR →
@@ -256,7 +256,7 @@ export default function Dashboard() {
             </h1>
             <div className="max-w-2xl">
               <p className="text-neutral-400 text-lg md:text-xl leading-relaxed">
-                Agora voce faz parte de um coletivo de
+                Agora você faz parte de um coletivo de
                 <span className="text-lime-400"> BUILDERS</span> obstinados.
                 <br />
                 <span className="inline-block min-w-[280px] md:min-w-[400px]">
@@ -271,11 +271,11 @@ export default function Dashboard() {
           <div className="border-l-4 border-lime-400 pl-6 mb-16 py-4">
             <div className="text-neutral-600 text-xs mb-2 tracking-widest">MANIFEST.txt</div>
             <pre className="text-neutral-500 text-sm md:text-base leading-relaxed">
-{`> Ideias sao lixo. Execucao e tudo.
-> Feedback do mercado > sua opiniao.
-> Lancou feio? Parabens, lancou.
-> Perfeccionismo e desculpa de quem tem medo.
-> 1 usuario pagante > 1000 likes no Twitter.`}
+{`> Ideias são lixo. Execução é tudo.
+> Feedback do mercado > sua opinião.
+> Lançou feio? Parabéns, lançou.
+> Perfeccionismo é desculpa de quem tem medo.
+> 1 usuário pagante > 1000 likes no Twitter.`}
             </pre>
           </div>
 
@@ -296,7 +296,7 @@ export default function Dashboard() {
                 DISCORD
               </h3>
               <p className="text-neutral-500 mb-6">
-                Discussoes em tempo real. Networking. Accountability groups. Onde a magia acontece.
+                Discussões em tempo real. Networking. Accountability groups. Onde a magia acontece.
               </p>
               <div className="flex items-center gap-2 text-lime-400 text-sm tracking-widest">
                 <span>ENTRAR</span>
@@ -319,7 +319,7 @@ export default function Dashboard() {
                 WHATSAPP
               </h3>
               <p className="text-black/70 mb-6">
-                Updates rapidos. Links uteis. Oportunidades exclusivas. Direto no seu bolso.
+                Updates rápidos. Links úteis. Oportunidades exclusivas. Direto no seu bolso.
               </p>
               <div className="flex items-center gap-2 text-black text-sm tracking-widest">
                 <span>ENTRAR</span>

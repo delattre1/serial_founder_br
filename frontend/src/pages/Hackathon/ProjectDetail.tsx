@@ -82,7 +82,7 @@ export default function ProjectDetailPage() {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="text-center">
-          <h1 className="font-brutal-display text-4xl mb-4">PROJETO NAO ENCONTRADO</h1>
+          <h1 className="font-brutal-display text-4xl mb-4">PROJETO NÃO ENCONTRADO</h1>
           <Link to="/hackathon" className="text-lime-400 font-brutal-mono hover:underline">
             Voltar para hackathon
           </Link>
@@ -195,7 +195,7 @@ export default function ProjectDetailPage() {
                 className="bg-lime-400 text-black brutal-border-inverse px-6 py-3 font-brutal-mono flex items-center gap-2 hover-shift-dark"
               >
                 <ExternalLink className="w-4 h-4" />
-                VER VIDEO
+                VER VÍDEO
               </a>
             )}
 
@@ -277,7 +277,7 @@ export default function ProjectDetailPage() {
           {project.how_it_was_built && (
             <section>
               <h2 className="font-brutal-display text-2xl text-white mb-6 border-b-2 border-neutral-800 pb-4">
-                COMO FOI CONSTRUIDO
+                COMO FOI CONSTRUÍDO
               </h2>
               <div className="prose prose-invert prose-lime max-w-none font-brutal-mono text-neutral-300 leading-relaxed">
                 {project.how_it_was_built.split('\n').map((line, i) => {

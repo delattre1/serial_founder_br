@@ -221,7 +221,7 @@ export default function MyProjectPage() {
                     className="border-2 border-neutral-600 px-6 py-3 text-neutral-400 font-brutal-mono flex items-center gap-2 hover:border-lime-400 hover:text-lime-400 transition-colors"
                   >
                     <Eye className="w-4 h-4" />
-                    VER PAGINA PUBLICA
+                    VER PÁGINA PÚBLICA
                   </Link>
 
                   {project?.demo_video_url && (
@@ -232,7 +232,7 @@ export default function MyProjectPage() {
                       className="border-2 border-neutral-600 px-6 py-3 text-neutral-400 font-brutal-mono flex items-center gap-2 hover:border-lime-400 hover:text-lime-400 transition-colors"
                     >
                       <ExternalLink className="w-4 h-4" />
-                      VER VIDEO
+                      VER VÍDEO
                     </a>
                   )}
 
@@ -258,7 +258,7 @@ export default function MyProjectPage() {
                   <div className="space-y-3 font-brutal-mono text-sm">
                     {project?.demo_video_url && (
                       <div className="flex items-center justify-between gap-4">
-                        <span className="text-neutral-500">Video:</span>
+                        <span className="text-neutral-500">Vídeo:</span>
                         <a
                           href={project.demo_video_url}
                           target="_blank"
@@ -302,7 +302,7 @@ export default function MyProjectPage() {
                 {project?.how_it_was_built && (
                   <div className="brutal-border bg-black p-6">
                     <h3 className="font-brutal-display text-lg text-lime-400 mb-4">
-                      COMO FOI CONSTRUIDO
+                      COMO FOI CONSTRUÍDO
                     </h3>
                     <div className="font-brutal-mono text-sm text-neutral-300 whitespace-pre-wrap">
                       {project.how_it_was_built}
@@ -320,7 +320,7 @@ export default function MyProjectPage() {
                   className="flex items-center gap-2 font-brutal-mono text-sm text-neutral-500 hover:text-lime-400 transition-colors mb-4"
                 >
                   <ArrowLeft className="w-4 h-4" />
-                  CANCELAR EDICAO
+                  CANCELAR EDIÇÃO
                 </button>
               </div>
 
