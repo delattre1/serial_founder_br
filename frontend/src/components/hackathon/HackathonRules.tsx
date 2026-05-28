@@ -105,7 +105,7 @@ export function HackathonRules() {
             <div className="text-right">
               <div className="font-brutal-mono text-xs text-neutral-500 tracking-widest">// POOL TOTAL</div>
               <div className="font-brutal-display text-3xl md:text-4xl text-lime-400">
-                ${totalUsd} <span className="text-neutral-500 text-xl md:text-2xl">· ~R${totalBrl.toLocaleString('pt-BR')}</span>
+                USD${totalUsd} <span className="text-neutral-500 text-xl md:text-2xl">· ~R${totalBrl.toLocaleString('pt-BR')}</span>
               </div>
             </div>
           </div>
@@ -126,7 +126,7 @@ export function HackathonRules() {
                     <div className={`font-brutal-display text-2xl md:text-3xl ${cfg.text}`}>{cfg.label}</div>
                   </div>
                   <div className="text-right flex-shrink-0">
-                    <div className="font-brutal-display text-4xl md:text-5xl text-white leading-none">${p.usd}</div>
+                    <div className="font-brutal-display text-4xl md:text-5xl text-white leading-none">USD${p.usd}</div>
                     <div className="font-brutal-mono text-sm text-neutral-500 mt-1">~R${p.brl}</div>
                   </div>
                 </div>
