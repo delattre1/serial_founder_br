@@ -1,4 +1,5 @@
 import { Check, X, Share2, Trophy, Medal, Award } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { CURRENT } from '@/config/hackathon';
 
 const PLACE_STYLE = {
@@ -30,26 +31,14 @@ export function HackathonRules() {
             ))}
           </div>
 
-          {rules.docPending && (
-            <div className="mt-6 border-2 border-neutral-800 bg-black p-4">
-              <div className="font-brutal-mono text-sm text-lime-400">
-                // DOCUMENTAÇÃO COMPLETA DAS REGRAS SEED EM BREVE
-              </div>
-              <p className="font-brutal-mono text-xs text-neutral-500 mt-1">
-                O Daniel vai publicar e compartilhar a especificação completa do desafio.
-              </p>
-              {rules.docUrl && (
-                <a
-                  href={rules.docUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block mt-2 font-brutal-mono text-xs text-lime-400 hover:underline"
-                >
-                  [VER DOCUMENTAÇÃO]
-                </a>
-              )}
+          <Link to="/hackathon/desafio" className="block mt-6 brutal-border-lime bg-black p-4 hover-shift">
+            <div className="font-brutal-mono text-sm text-lime-400">
+              // O DESAFIO COMPLETO: RECRIAR O ALMANAC COMO UMA SEED
             </div>
-          )}
+            <p className="font-brutal-mono text-sm text-neutral-400 mt-1">
+              Requisitos do entregável, a jornada de aceitação e a regra de ouro. Leia antes de começar →
+            </p>
+          </Link>
         </div>
 
         {/* What's allowed / not allowed */}
