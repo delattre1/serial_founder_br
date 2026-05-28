@@ -184,7 +184,7 @@ export function RegistrationForm({
       {/* Social Handle */}
       <div>
         <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
-          Seu @ <span className="text-neutral-600">(Twitter, Instagram, etc)</span>
+          Seu @ <span className="text-neutral-400">(Twitter, Instagram, etc)</span>
         </label>
         <input
           type="text"
@@ -194,7 +194,7 @@ export function RegistrationForm({
           className="w-full brutal-input"
           placeholder="@seuhandle"
         />
-        <p className="font-brutal-mono text-neutral-600 text-xs mt-2">
+        <p className="font-brutal-mono text-neutral-400 text-sm mt-2">
           Será exibido na página do projeto
         </p>
       </div>
@@ -202,7 +202,7 @@ export function RegistrationForm({
       {/* Short Description */}
       <div>
         <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
-          Descrição Curta * <span className="text-neutral-600">({charCount}/160)</span>
+          Descrição Curta * <span className="text-neutral-400">({charCount}/160)</span>
         </label>
         <input
           type="text"
@@ -219,7 +219,7 @@ export function RegistrationForm({
       {/* Project / repo URL (optional — no public deploy required) */}
       <div>
         <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
-          Link do projeto / repo <span className="text-neutral-600">(opcional)</span>
+          Link do projeto / repo <span className="text-neutral-400">(opcional)</span>
         </label>
         <input
           type="url"
@@ -229,7 +229,7 @@ export function RegistrationForm({
           className="w-full brutal-input"
           placeholder="https://github.com/user/seed-repo"
         />
-        <p className="font-brutal-mono text-neutral-600 text-xs mt-2">
+        <p className="font-brutal-mono text-neutral-400 text-sm mt-2">
           Deploy público NÃO é obrigatório. Pode ser o repo com a sua SEED (.md).
         </p>
       </div>
@@ -237,7 +237,7 @@ export function RegistrationForm({
       {/* Demo video — REQUIRED public link */}
       <div>
         <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
-          Vídeo do produto funcionando * <span className="text-neutral-600">(Loom, YouTube, Drive, etc.)</span>
+          Vídeo do produto funcionando * <span className="text-neutral-400">(Loom, YouTube, Drive, etc.)</span>
         </label>
         <input
           type="url"
@@ -250,7 +250,7 @@ export function RegistrationForm({
           className="w-full brutal-input"
           placeholder="https://loom.com/share/..."
         />
-        <p className="font-brutal-mono text-neutral-600 text-xs mt-2">
+        <p className="font-brutal-mono text-neutral-400 text-sm mt-2">
           O link PRECISA estar público e acessível. Se não abrir, a submissão é desqualificada.
         </p>
         {videoError && <p className="font-brutal-mono text-red-500 text-sm mt-2">{videoError}</p>}
@@ -259,7 +259,7 @@ export function RegistrationForm({
       {/* How it was built */}
       <div>
         <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
-          Como foi construído? <span className="text-neutral-600">(suporta markdown)</span>
+          Como foi construído? <span className="text-neutral-400">(suporta markdown)</span>
         </label>
         <textarea
           name="how_it_was_built"
@@ -277,7 +277,7 @@ export function RegistrationForm({
 
 Comecei definindo o problema...`}
         />
-        <p className="font-brutal-mono text-neutral-600 text-xs mt-2">
+        <p className="font-brutal-mono text-neutral-400 text-sm mt-2">
           Use ### para títulos, - para listas, **texto** para negrito
         </p>
       </div>
@@ -285,7 +285,7 @@ Comecei definindo o problema...`}
       {/* Full Description */}
       <div>
         <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
-          Descrição Completa <span className="text-neutral-600">(suporta markdown)</span>
+          Descrição Completa <span className="text-neutral-400">(suporta markdown)</span>
         </label>
         <textarea
           name="full_description"
@@ -297,7 +297,7 @@ Comecei definindo o problema...`}
 
 Descreva seu projeto aqui...`}
         />
-        <p className="font-brutal-mono text-neutral-600 text-xs mt-2">
+        <p className="font-brutal-mono text-neutral-400 text-sm mt-2">
           Use ## para títulos grandes, ### para subtítulos, - para listas
         </p>
       </div>
@@ -305,7 +305,7 @@ Descreva seu projeto aqui...`}
       {/* GitHub URL */}
       <div>
         <label className="block font-brutal-mono text-sm text-neutral-400 mb-2">
-          GitHub <span className="text-neutral-600">(opcional)</span>
+          GitHub <span className="text-neutral-400">(opcional)</span>
         </label>
         <input
           type="url"
@@ -347,7 +347,7 @@ Descreva seu projeto aqui...`}
               <p className="font-brutal-mono text-neutral-500 text-sm">
                 {isUploading ? 'ENVIANDO...' : '[CLIQUE PARA UPLOAD]'}
               </p>
-              <p className="font-brutal-mono text-neutral-600 text-xs mt-2">PNG, JPG ou WEBP - Max 5MB</p>
+              <p className="font-brutal-mono text-neutral-400 text-sm mt-2">PNG, JPG ou WEBP - Max 5MB</p>
             </div>
           )}
           <input ref={fileInputRef} type="file" accept="image/png,image/jpeg,image/webp" onChange={handleScreenshotUpload} className="hidden" />
@@ -408,13 +408,13 @@ Descreva seu projeto aqui...`}
               <p className="font-brutal-mono text-neutral-500 text-sm">
                 {isUploadingProof ? 'ENVIANDO...' : '[ENVIAR PRINT DO REPOST]'}
               </p>
-              <p className="font-brutal-mono text-neutral-600 text-xs mt-2">PNG, JPG ou WEBP - Max 10MB</p>
+              <p className="font-brutal-mono text-neutral-400 text-sm mt-2">PNG, JPG ou WEBP - Max 10MB</p>
             </div>
           )}
           <input ref={proofInputRef} type="file" accept="image/png,image/jpeg,image/webp" onChange={handleProofUpload} className="hidden" />
           {proofError && <p className="font-brutal-mono text-red-500 text-sm mt-3 text-center">{proofError}</p>}
         </div>
-        <p className="font-brutal-mono text-neutral-600 text-xs mt-2">{CURRENT.entry.proofHint}</p>
+        <p className="font-brutal-mono text-neutral-400 text-sm mt-2">{CURRENT.entry.proofHint}</p>
 
         {entryError && <p className="font-brutal-mono text-red-500 text-sm mt-4">{entryError}</p>}
       </div>
