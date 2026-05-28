@@ -153,6 +153,18 @@ export default function RegisterPage() {
 
       {/* Main content */}
       <main className="py-16 px-4">
+        <div className="max-w-2xl mx-auto mb-8">
+          <Link
+            to="/hackathon/desafio"
+            className="block brutal-border-lime bg-black p-4 hover-shift"
+          >
+            <div className="font-brutal-mono text-sm text-lime-400">// LEIA O DESAFIO ANTES DE COMEÇAR</div>
+            <div className="font-brutal-mono text-sm text-neutral-400 mt-1">
+              O entregável é uma SEED (.md), não um app pronto. Veja os requisitos completos →
+            </div>
+          </Link>
+        </div>
+
         <RegistrationForm
           onSubmit={handleSubmit}
           onSaveDraft={handleSaveDraft}

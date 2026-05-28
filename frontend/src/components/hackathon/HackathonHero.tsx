@@ -87,6 +87,13 @@ export function HackathonHero({ hasProject }: HackathonHeroProps) {
             </Link>
           )}
 
+          <Link
+            to="/hackathon/desafio"
+            className="brutal-border bg-black px-6 py-4 text-white font-brutal-mono hover-shift inline-block"
+          >
+            [VER O DESAFIO]
+          </Link>
+
           <button
             onClick={() => document.getElementById('regras')?.scrollIntoView({ behavior: 'smooth' })}
             className="brutal-border bg-black px-6 py-4 text-white font-brutal-mono hover-shift"
