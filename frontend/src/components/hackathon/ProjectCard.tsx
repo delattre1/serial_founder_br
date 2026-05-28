@@ -7,7 +7,7 @@ export interface Project {
   name: string;
   slug: string;
   short_description: string;
-  project_url: string;
+  project_url?: string;
   screenshot_url?: string;
   github_url?: string;
   user_id: string;
@@ -58,8 +58,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
           className="w-full h-full object-cover"
         />
 
-        {/* Live iframe preview on hover */}
-        {showPreview && !iframeError && (
+        {/* Live iframe preview on hover (only if a public URL exists) */}
+        {project.project_url && showPreview && !iframeError && (
           <div className="absolute inset-0 bg-neutral-900">
             {!iframeLoaded && (
               <div className="absolute inset-0 flex items-center justify-center">
@@ -77,18 +77,20 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </div>
         )}
 
-        {/* Hover overlay with link */}
-        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-          <a
-            href={project.project_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-lime-400 text-black px-4 py-2 font-brutal-mono text-sm flex items-center gap-2"
-          >
-            <ExternalLink className="w-4 h-4" />
-            ACESSAR
-          </a>
-        </div>
+        {/* Hover overlay with link (only if a public URL exists) */}
+        {project.project_url && (
+          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <a
+              href={project.project_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-lime-400 text-black px-4 py-2 font-brutal-mono text-sm flex items-center gap-2"
+            >
+              <ExternalLink className="w-4 h-4" />
+              ACESSAR
+            </a>
+          </div>
+        )}
       </div>
 
       {/* Project info */}
