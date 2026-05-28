@@ -167,9 +167,16 @@ export default function ChallengePage() {
         <section>
           <h2 className="font-brutal-display text-2xl md:text-3xl text-white mb-2">// REFERÊNCIA</h2>
           <p className="font-brutal-mono text-sm text-neutral-400">
-            O que é uma boa receita (spec-driven development): veja o <strong className="text-white">Symfony</strong> e o padrão{' '}
+            O que é uma boa receita (spec-driven development): o{' '}
+            <a href="https://github.com/openai/symphony" target="_blank" rel="noopener noreferrer" className="text-lime-400 hover:underline">Symphony da OpenAI</a>{' '}
+            é o exemplo — o{' '}
+            <a href="https://github.com/openai/symphony/blob/main/SPEC.md" target="_blank" rel="noopener noreferrer" className="text-lime-400 hover:underline">SPEC.md</a>{' '}
+            deles define o projeto inteiro, e você entrega esse spec pro agente construir. É exatamente a ideia de uma SEED: a receita constrói o produto.
+          </p>
+          <p className="font-brutal-mono text-sm text-neutral-400 mt-2">
+            Padrão útil:{' '}
             <a href="https://www.rfc-editor.org/rfc/rfc2119" target="_blank" rel="noopener noreferrer" className="text-lime-400 hover:underline">RFC 2119</a>{' '}
-            (como uma spec descreve o que é obrigatório vs. opcional).
+            — como uma spec marca o que é obrigatório vs. opcional.
           </p>
         </section>
 
