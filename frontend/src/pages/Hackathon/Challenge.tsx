@@ -73,6 +73,23 @@ export default function ChallengePage() {
           <h1 className="font-brutal-display text-5xl md:text-7xl text-stroke-lime leading-none">ALMANAC</h1>
         </section>
 
+        {/* Tutorial video — watch first */}
+        <section>
+          <h2 className="font-brutal-display text-3xl md:text-4xl text-white mb-2">// TUTORIAL — O QUE ENTREGAR</h2>
+          <p className="font-brutal-mono text-sm text-neutral-400 mb-6">Assista antes de começar.</p>
+          <div className="brutal-border bg-black p-2">
+            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+              <iframe
+                className="absolute inset-0 w-full h-full"
+                src="https://www.youtube.com/embed/0Q1id0Eo6pw"
+                title="Hackathon — O que você precisa entregar"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </section>
+
         {/* 1. RECEITA, NÃO PRODUTO — top emphasis */}
         <section className="bg-lime-400 text-black p-8" style={{ border: '3px solid black', boxShadow: '8px 8px 0 0 rgba(0,0,0,1)' }}>
           <div className="flex items-start gap-3 mb-4">
