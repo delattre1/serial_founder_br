@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
-import { HackathonHero, HackathonRules, ProjectGrid, Project } from '@/components/hackathon';
+import { HackathonHero, HackathonRules, ProjectGrid, Project, DeadlineBanner } from '@/components/hackathon';
 import { CURRENT_ROUND } from '@/config/hackathon';
 
 export default function HackathonPage() {
@@ -59,6 +59,9 @@ export default function HackathonPage() {
       {/* Overlays */}
       <div className="noise-overlay" />
       <div className="scanline" />
+
+      {/* Deadline banner */}
+      <DeadlineBanner />
 
       {/* Header */}
       <header className="border-b-2 border-neutral-800 p-4">
