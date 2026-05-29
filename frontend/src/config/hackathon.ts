@@ -36,6 +36,7 @@ export interface RoundConfig {
     checkboxLabel: string;
     proofLabel: string;
     proofHint: string;
+    repostVideoUrl: string; // the exact post participants must repost
   };
   prizesNote: string;
   prizes: PrizeTier[];
@@ -80,6 +81,7 @@ export const ROUNDS: Record<number, RoundConfig> = {
       proofLabel: 'Print do seu repost (deve aparecer @danedelattre marcado) *',
       proofHint:
         'Envie o print do seu story/post mostrando a marcação. O prêmio só é pago após o Daniel confirmar o repost.',
+      repostVideoUrl: 'https://www.instagram.com/p/DY5pJxDR6bv/',
     },
     prizesNote: 'Premiação bancada pelo Daniel (paga em dólar). Top 3 levam:',
     prizes: [

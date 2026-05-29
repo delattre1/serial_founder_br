@@ -366,8 +366,26 @@ Descreva seu projeto aqui...`}
           <Share2 className="w-6 h-6 text-lime-400 flex-shrink-0" />
           <div>
             <h3 className="font-brutal-display text-xl text-white">{CURRENT.entry.headline}</h3>
-            <p className="font-brutal-mono text-xs text-neutral-400 mt-1">{CURRENT.entry.description}</p>
+            <p className="font-brutal-mono text-sm text-neutral-400 mt-1">{CURRENT.entry.description}</p>
           </div>
+        </div>
+
+        {/* Which exact video to repost */}
+        <div className="border-2 border-lime-400 bg-black p-4 mb-4">
+          <p className="font-brutal-mono text-sm text-neutral-300">
+            Reposte <strong className="text-white">ESTE vídeo</strong> no seu Instagram (e marque <strong className="text-white">@danedelattre</strong>):
+          </p>
+          <a
+            href={CURRENT.entry.repostVideoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-brutal-mono text-sm text-lime-400 hover:underline break-all"
+          >
+            ▶ {CURRENT.entry.repostVideoUrl}
+          </a>
+          <p className="font-brutal-mono text-sm text-neutral-400 mt-2">
+            O print da prova tem que ser do repost DESTE vídeo.
+          </p>
         </div>
 
         <label className="flex items-start gap-3 cursor-pointer mb-4">
