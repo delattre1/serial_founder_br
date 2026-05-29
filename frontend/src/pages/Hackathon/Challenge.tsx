@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft, FileCode, Check, X, AlertTriangle } from 'lucide-react';
 import { CURRENT } from '@/config/hackathon';
+import { DeadlineBanner } from '@/components/hackathon';
 
 const JOURNEY = [
   'A pessoa se registra e entra no app',
@@ -44,6 +45,9 @@ export default function ChallengePage() {
     <div className="min-h-screen bg-black text-white font-brutal-mono grid-bg relative overflow-hidden">
       <div className="noise-overlay" />
       <div className="scanline" />
+
+      {/* Deadline banner */}
+      <DeadlineBanner />
 
       {/* Header */}
       <header className="border-b-2 border-neutral-800 p-4">

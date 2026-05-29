@@ -25,6 +25,7 @@ export interface RoundConfig {
   dates: {
     startLabel: string;
     endLabel: string;
+    registrationDeadline: string; // single source for the deadline banner
     subinfo: string[];
   };
   // Round 2 has no public voting — winners are picked by the host.
@@ -62,8 +63,9 @@ export const ROUNDS: Record<number, RoundConfig> = {
     dates: {
       startLabel: '28/05 15:30',
       endLabel: '30/05 23:59',
+      registrationDeadline: 'sexta-feira, 29/05, 23:59',
       subinfo: [
-        '// INSCRIÇÕES ATÉ: 28/05 23:30 BRT (quinta)',
+        '// INSCRIÇÕES ATÉ: 29/05 23:59 BRT (sexta)',
         '// INÍCIO: 28/05 15:30 BRT (quinta)',
         '// SUBMISSÃO ATÉ: 30/05 23:59 BRT (sábado)',
         '// VENCEDORES (live): 31/05 18:30 BRT (domingo) — Top 3 fazem pitch',
