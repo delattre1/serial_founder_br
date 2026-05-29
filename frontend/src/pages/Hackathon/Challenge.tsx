@@ -81,7 +81,7 @@ export default function ChallengePage() {
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
                 className="absolute inset-0 w-full h-full"
-                src="https://www.youtube.com/embed/0Q1id0Eo6pw"
+                src="https://www.youtube.com/embed/tKA_gOvM848"
                 title="Hackathon — O que você precisa entregar"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
@@ -111,7 +111,7 @@ export default function ChallengePage() {
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
                 className="absolute inset-0 w-full h-full"
-                src="https://www.youtube.com/embed/0xiikHJ6LcY"
+                src="https://www.youtube.com/embed/nN20AAxGqhM"
                 title="O que é uma SEED?"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
