@@ -103,6 +103,23 @@ export default function ChallengePage() {
           </ul>
         </section>
 
+        {/* Conceptual reference: what is a SEED */}
+        <section>
+          <h2 className="font-brutal-display text-3xl md:text-4xl text-white mb-2">// O QUE É UMA SEED?</h2>
+          <p className="font-brutal-mono text-sm text-neutral-400 mb-6">A referência pra entender o conceito.</p>
+          <div className="brutal-border bg-black p-2">
+            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+              <iframe
+                className="absolute inset-0 w-full h-full"
+                src="https://www.youtube.com/embed/0xiikHJ6LcY"
+                title="O que é uma SEED?"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </section>
+
         {/* 2. O DESAFIO */}
         <section>
           <h2 className="font-brutal-display text-3xl md:text-4xl text-white mb-4">// O DESAFIO</h2>
