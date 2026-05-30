@@ -81,7 +81,7 @@ export default function ChallengePage() {
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
                 className="absolute inset-0 w-full h-full"
-                src="https://www.youtube.com/embed/tKA_gOvM848"
+                src="https://www.youtube.com/embed/ZCOWyTukEfw"
                 title="Hackathon — O que você precisa entregar"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
